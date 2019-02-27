@@ -166,6 +166,7 @@ public class CourseManagerGUI {
 	        	//Clear username and password inputed so user doesn't have to clear text field after logout
 	        	usernameField.setText(null);
 	        	passwordField.setText(null);
+	        	loginMessage.setVisible(false);
 	        }
 	        
 	        else {
