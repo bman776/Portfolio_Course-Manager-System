@@ -15,7 +15,8 @@ import java.awt.Button;
 
 /**
  * GUI Class for Course + Program Manager
- * @author User 1
+ * Currently contains User Login and Logout Functionalities
+ * @author Michael Manila
  */
 
 public class CourseManagerGUI {
@@ -168,7 +169,7 @@ public class CourseManagerGUI {
 	        }
 	        
 	        else {
-	        	// Incorrect Username and Password Combination, Display message and clear password field
+	        	// Incorrect Username and Password Combination, display message and clear password field
 	        	loginMessage.setVisible(true);
 	        	passwordField.setText(null);
 	        }
@@ -178,7 +179,7 @@ public class CourseManagerGUI {
 	    });
 		
 		/**
-		 * Action Listener for Logout Button
+		 * Action Listener for when Logout Button pressed
 		 */
 		btnLogout.addActionListener(new ActionListener()
 	    {
