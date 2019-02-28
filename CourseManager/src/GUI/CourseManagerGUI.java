@@ -10,7 +10,9 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Color;
-import java.awt.Button;
+import java.awt.SystemColor;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 
 /**
@@ -60,52 +62,67 @@ public class CourseManagerGUI {
 	 */
 	private void initialize() {
 		frmCourseAndProgram = new JFrame();
+		frmCourseAndProgram.setResizable(false);
 		frmCourseAndProgram.setTitle("Course and Program Manager");
-		frmCourseAndProgram.setBounds(100, 100, 450, 300);
+		frmCourseAndProgram.setBounds(100, 100, 650, 400);
 		frmCourseAndProgram.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCourseAndProgram.getContentPane().setLayout(null);
-
-		/*
-		 * Create login Panel and add components
-		 */
 		JPanel loginPanel = new JPanel();
-		loginPanel.setBounds(0, 0, 434, 261);
+		loginPanel.setBounds(0, 0, 644, 371);
 		frmCourseAndProgram.getContentPane().add(loginPanel);
 		loginPanel.setLayout(null);
 		
-		JLabel lblUsername = new JLabel("Username: ");
-		lblUsername.setBounds(10, 35, 70, 14);
+		JLabel lblUsername = new JLabel("Username");
+		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblUsername.setBounds(375, 61, 169, 31);
 		loginPanel.add(lblUsername);
 		
-		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setBounds(10, 75, 70, 14);
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblPassword.setBounds(375, 160, 169, 31);
 		loginPanel.add(lblPassword);
 		
 		usernameField = new JTextField();
-		usernameField.setBounds(90, 32, 86, 20);
+		usernameField.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		usernameField.setBounds(375, 95, 230, 31);
 		loginPanel.add(usernameField);
 		usernameField.setColumns(10);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(90, 72, 86, 20);
+		passwordField.setBounds(375, 195, 230, 31);
 		loginPanel.add(passwordField);
 		
-		JLabel loginMessage = new JLabel("Invalid Username/Password Combination");
-		loginMessage.setBounds(90, 103, 345, 14);
-		loginMessage.setForeground(Color.RED);
-		loginPanel.add(loginMessage);
-		loginMessage.setVisible(false);
-		
-		JButton btnLogin = new JButton("Login");
-		btnLogin.setBounds(200, 140, 90, 23);
+		JButton btnLogin = new JButton("Log In");
+		btnLogin.setBackground(SystemColor.activeCaption);
+		btnLogin.setFont(new Font("Sitka Small", Font.PLAIN, 18));
+		btnLogin.setBounds(413, 247, 146, 31);
 		loginPanel.add(btnLogin);
 		
+		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.activeCaption);
+		panel.setBounds(0, 0, 345, 371);
+		loginPanel.add(panel);
+		panel.setLayout(null);
 		
-		/*
-		 * Create menu panel and add components
-		 */
+		JLabel lblCourseAndProgram = new JLabel("<html>Course and <br>Program Manager</html>");
+		lblCourseAndProgram.setFont(new Font("Sitka Small", Font.PLAIN, 25));
+		lblCourseAndProgram.setBounds(28, 72, 278, 182);
+		panel.add(lblCourseAndProgram);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.WHITE);
+		panel_1.setBounds(342, 0, 302, 371);
+		loginPanel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel loginMessage = new JLabel("<html>Wrong Username and <br>Password Combination</html>");
+		loginMessage.setBounds(38, 289, 210, 48);
+		panel_1.add(loginMessage);
+		loginMessage.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		loginMessage.setHorizontalAlignment(SwingConstants.CENTER);
+		loginMessage.setForeground(Color.RED);
 		JPanel menuPanel = new JPanel();
-		menuPanel.setBounds(0, 0, 434, 261);
+		menuPanel.setBounds(0, 0, 644, 371);
 		frmCourseAndProgram.getContentPane().add(menuPanel);
 		menuPanel.setLayout(null);
 		menuPanel.setVisible(false);
@@ -131,12 +148,28 @@ public class CourseManagerGUI {
 		menuPanel.add(btnPrograms);
 		
 		JButton btnLogout = new JButton("Logout");
-		btnLogout.setBounds(335, 7, 89, 23);
+		btnLogout.setBounds(545, 11, 89, 23);
 		menuPanel.add(btnLogout);
 		
 		JButton btnSettings = new JButton("Settings");
-		btnSettings.setBounds(335, 41, 89, 23);
+		btnSettings.setBounds(545, 45, 89, 23);
 		menuPanel.add(btnSettings);
+		btnLogout.addActionListener(new ActionListener()
+	    {
+	      public void actionPerformed(ActionEvent e)
+	      {
+	        	//Switch to Login Panel
+	        	loginPanel.setVisible(true);
+	        	menuPanel.setVisible(false);
+	        
+	      }
+	    });
+		loginMessage.setVisible(false);
+		
+		
+		/*
+		 * Create menu panel and add components
+		 */
 		
 		/**
 		 * Action Listener for Login Button
@@ -154,8 +187,12 @@ public class CourseManagerGUI {
 	        	pwInput += passwordArr[i];
 	        }
 	        
+	        /**
+	         * Prints to help check functionality
+	         */
 	        System.out.println(usernameInput);
 	        System.out.println(pwInput);
+	        
 	        if(usernameInput.equals(testUsername) && pwInput.equals(testPassword)) {
 	        	System.out.println("Valid");
 	        	
@@ -167,6 +204,13 @@ public class CourseManagerGUI {
 	        	usernameField.setText(null);
 	        	passwordField.setText(null);
 	        	loginMessage.setVisible(false);
+	        	
+	        	JFrame newFrame = new JFrame();
+	        	frmCourseAndProgram.setTitle("Course and Program Manager");
+	    		frmCourseAndProgram.setBounds(100, 100, 450, 300);
+	    		newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    		newFrame.getContentPane().setLayout(null);
+	        	newFrame.setVisible(true);
 	        }
 	        
 	        else {
@@ -182,16 +226,6 @@ public class CourseManagerGUI {
 		/**
 		 * Action Listener for when Logout Button pressed
 		 */
-		btnLogout.addActionListener(new ActionListener()
-	    {
-	      public void actionPerformed(ActionEvent e)
-	      {
-	        	//Switch to Login Panel
-	        	loginPanel.setVisible(true);
-	        	menuPanel.setVisible(false);
-	        
-	      }
-	    });
 		
 	}
 }
