@@ -96,32 +96,34 @@ public class CourseManagerGUI {
 		passwordField.setBounds(375, 195, 230, 31);
 		loginPanel.add(passwordField);
 		
+		//Log in Button
 		JButton btnLogin = new JButton("Log In");
 		btnLogin.setBackground(SystemColor.activeCaption);
 		btnLogin.setFont(new Font("Sitka Small", Font.PLAIN, 18));
 		btnLogin.setBounds(413, 247, 146, 31);
 		loginPanel.add(btnLogin);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.activeCaption);
-		panel.setBounds(0, 0, 345, 371);
-		loginPanel.add(panel);
-		panel.setLayout(null);
+		
+		JPanel blueLoginPanel = new JPanel();
+		blueLoginPanel.setBackground(SystemColor.activeCaption);
+		blueLoginPanel.setBounds(0, 0, 345, 371);
+		loginPanel.add(blueLoginPanel);
+		blueLoginPanel.setLayout(null);
 		
 		JLabel lblCourseAndProgram = new JLabel("<html>Course and <br>Program Manager</html>");
 		lblCourseAndProgram.setFont(new Font("Sitka Small", Font.PLAIN, 25));
 		lblCourseAndProgram.setBounds(28, 72, 278, 182);
-		panel.add(lblCourseAndProgram);
+		blueLoginPanel.add(lblCourseAndProgram);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.WHITE);
-		panel_1.setBounds(342, 0, 302, 371);
-		loginPanel.add(panel_1);
-		panel_1.setLayout(null);
+		JPanel whiteLoginPanel = new JPanel();
+		whiteLoginPanel.setBackground(Color.WHITE);
+		whiteLoginPanel.setBounds(342, 0, 302, 371);
+		loginPanel.add(whiteLoginPanel);
+		whiteLoginPanel.setLayout(null);
 		
 		JLabel loginMessage = new JLabel("<html>Wrong Username and <br>Password Combination</html>");
 		loginMessage.setBounds(38, 289, 210, 48);
-		panel_1.add(loginMessage);
+		whiteLoginPanel.add(loginMessage);
 		loginMessage.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		loginMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		loginMessage.setForeground(Color.RED);
