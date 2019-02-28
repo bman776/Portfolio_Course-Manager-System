@@ -1,5 +1,3 @@
-//package GUI;
-
 public class Course extends Item {
 	private double hours;
 	private double credits;

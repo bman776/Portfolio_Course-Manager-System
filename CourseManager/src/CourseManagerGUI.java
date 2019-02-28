@@ -1,4 +1,4 @@
-package GUI;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -207,8 +207,8 @@ public class CourseManagerGUI {
 
 	        
 	        // Prints to help check getting proper input
-	        //System.out.println(usernameInput);
-	        //System.out.println(pwInput);
+	        // System.out.println(usernameInput);
+	        // System.out.println(pwInput);
 
 	        if(usernameInput.equals(testUsername) && pwInput.equals(testPassword)) {
 	        	
@@ -236,8 +236,6 @@ public class CourseManagerGUI {
 		/**
 		 * Action Listener for when Logout Button pressed
 		 */
-
-		
 		btnLogout.addActionListener(new ActionListener()
 	    {
 	      public void actionPerformed(ActionEvent e)
@@ -250,3 +248,4 @@ public class CourseManagerGUI {
 	    });
 }
 }
+	        
