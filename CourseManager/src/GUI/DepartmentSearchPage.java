@@ -1,6 +1,8 @@
 package GUI;
 
 import javax.swing.*;
+import java.awt.Font;
+import java.awt.SystemColor;
 
 
 public class DepartmentSearchPage extends JFrame {
@@ -15,50 +17,68 @@ public class DepartmentSearchPage extends JFrame {
     private String[] dummyDepartments = {"Department1","Department2","Department3","Department4","Department5",
             "Department6","Department7","Department8","Department9"};
     private JButton searchButton;
+    private JPanel panel;
 
     //constructor
     public DepartmentSearchPage(){
+    	setResizable(false);
         setTitle("Department Page");
         setBounds(100,100, 500, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
         departmentPanel = new JPanel();
-        departmentPanel.setBounds(0,0, 500, 500);
+        departmentPanel.setBackground(SystemColor.activeCaption);
+        departmentPanel.setBounds(0,0, 494, 471);
         getContentPane().add(departmentPanel);
         departmentPanel.setLayout(null);
 
-        departmentLabel = new JLabel("Departments:");
-        departmentLabel.setBounds(200,0,100,50);
-        departmentPanel.add(departmentLabel);
-
         departmentList = new JComboBox(dummyDepartments);
-        departmentList.setBounds(100,45,300, 20);
+        departmentList.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        departmentList.setBounds(100,45,300, 30);
         departmentPanel.add(departmentList);
 
         searchLabel = new JLabel("Search for a Department");
-        searchLabel.setBounds(175,245,150, 15); //y was 265
+        searchLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        searchLabel.setBounds(110,260,150, 15); //y was 265
         departmentPanel.add(searchLabel);
 
-        nameLabel = new JLabel("name of Department");
-        nameLabel.setBounds(75,285,100,15 );
-        departmentPanel.add(nameLabel);
-
         departmentNameField = new JTextField();
-        departmentNameField.setBounds(200,285,250, 20);
+        departmentNameField.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        departmentNameField.setBounds(165,286,250, 25);
         departmentPanel.add(departmentNameField);
 
-        numberLabel = new JLabel("ID number of Department");
-        numberLabel.setBounds( 75,310,100, 15);
-        departmentPanel.add(numberLabel);
-
         departmentNumberField = new JTextField();
-        departmentNumberField.setBounds( 200,310, 250, 20);
+        departmentNumberField.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        departmentNumberField.setBounds( 165,325, 250, 25);
         departmentPanel.add(departmentNumberField);
 
         searchButton = new JButton("Search for Department");
-        searchButton.setBounds(200,335, 100, 20);
+        searchButton.setBackground(SystemColor.activeCaption);
+        searchButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        searchButton.setBounds(165,360, 175, 30);
         departmentPanel.add(searchButton);
+        
+        panel = new JPanel();
+        panel.setBackground(SystemColor.window);
+        panel.setBounds(10, 11, 474, 449);
+        departmentPanel.add(panel);
+        panel.setLayout(null);
+        
+                departmentLabel = new JLabel("Departments:");
+                departmentLabel.setBounds(165, 0, 100, 30);
+                panel.add(departmentLabel);
+                departmentLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+                
+                        numberLabel = new JLabel("Department ID Number:");
+                        numberLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+                        numberLabel.setBounds(10, 316, 154, 15);
+                        panel.add(numberLabel);
+                        
+                                nameLabel = new JLabel("Department Name:");
+                                nameLabel.setBounds(37, 279, 135, 15);
+                                panel.add(nameLabel);
+                                nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
 
     }
 

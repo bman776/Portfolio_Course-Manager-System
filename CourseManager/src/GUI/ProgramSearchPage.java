@@ -1,6 +1,8 @@
 package GUI;
 
 import javax.swing.*;
+import java.awt.SystemColor;
+import java.awt.Font;
 
 
 public class ProgramSearchPage extends JFrame {
@@ -15,50 +17,68 @@ public class ProgramSearchPage extends JFrame {
     private String[] dummyPrograms = {"Program1","Program2","Program3","Program4","Program5","Program6","Program7",
             "Program8", "Program9"};
     private JButton searchButton;
+    private JPanel panel;
 
     //constructor
     public ProgramSearchPage(){
+    	setResizable(false);
         setTitle("Program Page");
         setBounds(100,100, 500, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
         programPanel = new JPanel();
-        programPanel.setBounds(0,0, 500, 500);
+        programPanel.setBackground(SystemColor.activeCaption);
+        programPanel.setBounds(0,0, 494, 471);
         getContentPane().add(programPanel);
         programPanel.setLayout(null);
 
         programLabel = new JLabel("Programs:");
+        programLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
         programLabel.setBounds(200,0,100,50);
         programPanel.add(programLabel);
 
         programList = new JComboBox(dummyPrograms);
-        programList.setBounds(100,45,300, 20);
+        programList.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        programList.setBounds(100,45,300, 30);
         programPanel.add(programList);
 
         searchLabel = new JLabel("Search for a Program");
-        searchLabel.setBounds(175,245,150, 15); //y was 265
+        searchLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        searchLabel.setBounds(110,260,150, 15); //y was 265
         programPanel.add(searchLabel);
 
-        nameLabel = new JLabel("name of Program");
-        nameLabel.setBounds(75,285,100,15 );
-        programPanel.add(nameLabel);
-
         programNameField = new JTextField();
-        programNameField.setBounds(200,285,250, 20);
+        programNameField.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        programNameField.setBounds(165,285,250, 25);
         programPanel.add(programNameField);
 
-        numberLabel = new JLabel("ID number of Program");
-        numberLabel.setBounds( 75,310,100, 15);
-        programPanel.add(numberLabel);
-
         programNumberField = new JTextField();
-        programNumberField.setBounds( 200,310, 250, 20);
+        programNumberField.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        programNumberField.setBounds( 165,325, 250, 25);
         programPanel.add(programNumberField);
 
         searchButton = new JButton("Search for Program");
-        searchButton.setBounds(200,335, 100, 20);
+        searchButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        searchButton.setBackground(SystemColor.activeCaption);
+        searchButton.setBounds(165,360, 175, 30);
         programPanel.add(searchButton);
+        
+        panel = new JPanel();
+        panel.setBackground(SystemColor.window);
+        panel.setBounds(10, 11, 474, 449);
+        programPanel.add(panel);
+        panel.setLayout(null);
+        
+                nameLabel = new JLabel("Program Name:");
+                nameLabel.setBounds(57, 281, 108, 15);
+                panel.add(nameLabel);
+                nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+                
+                        numberLabel = new JLabel("Program ID Number:");
+                        numberLabel.setBounds(30, 319, 131, 15);
+                        panel.add(numberLabel);
+                        numberLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
 
     }
 

@@ -101,7 +101,7 @@ public class CourseManagerGUI {
 		JButton btnLogin = new JButton("Log In");
 		btnLogin.setBackground(SystemColor.activeCaption);
 		btnLogin.setFont(new Font("Sitka Small", Font.PLAIN, 18));
-		btnLogin.setBounds(413, 247, 146, 31);
+		btnLogin.setBounds(400, 250, 150, 30);
 		loginPanel.add(btnLogin);
 		
 		JPanel panel = new JPanel();
@@ -141,38 +141,84 @@ public class CourseManagerGUI {
 		loginMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		loginMessage.setForeground(Color.RED);
 		JPanel menuPanel = new JPanel();
+		menuPanel.setBackground(SystemColor.window);
 		menuPanel.setBounds(0, 0, 644, 371);
 		frmCourseAndProgram.getContentPane().add(menuPanel);
-		menuPanel.setLayout(null);
 		menuPanel.setVisible(false);
+		menuPanel.setLayout(null);
 		
 		JButton btnCourses = new JButton("Courses");
-		btnCourses.setBounds(10, 215, 89, 23);
+		btnCourses.setBackground(SystemColor.activeCaption);
+		btnCourses.setBounds(110, 250, 120, 30);
+		btnCourses.setFont(new Font("Sitka Small", Font.PLAIN, 14));
 		menuPanel.add(btnCourses);
 		
-		JLabel lblSearch = new JLabel("Search:");
-		lblSearch.setBounds(10, 87, 46, 14);
+		JLabel lblSearch = new JLabel("Search for:");
+		lblSearch.setBounds(25, 100, 90, 20);
+		lblSearch.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		menuPanel.add(lblSearch);
 		
 		JButton btnFaculty = new JButton("Faculty");
-		btnFaculty.setBounds(10, 112, 89, 23);
+		btnFaculty.setBackground(SystemColor.activeCaption);
+		btnFaculty.setBounds(110, 130, 120, 30);
+		btnFaculty.setFont(new Font("Sitka Small", Font.PLAIN, 14));
 		menuPanel.add(btnFaculty);
 		
 		JButton btnDepartment = new JButton("Department");
-		btnDepartment.setBounds(10, 146, 89, 23);
+		btnDepartment.setBackground(SystemColor.activeCaption);
+		btnDepartment.setBounds(110, 170, 120, 30);
+		btnDepartment.setFont(new Font("Sitka Small", Font.PLAIN, 14));
 		menuPanel.add(btnDepartment);
 		
 		JButton btnPrograms = new JButton("Programs");
-		btnPrograms.setBounds(10, 180, 89, 23);
+		btnPrograms.setBackground(SystemColor.activeCaption);
+		btnPrograms.setBounds(110, 210, 120, 30);
+		btnPrograms.setFont(new Font("Sitka Small", Font.PLAIN, 14));
 		menuPanel.add(btnPrograms);
 		
 		JButton btnLogout = new JButton("Logout");
-		btnLogout.setBounds(545, 11, 89, 23);
+		btnLogout.setBackground(SystemColor.activeCaption);
+		btnLogout.setBounds(534, 11, 100, 30);
+		btnLogout.setFont(new Font("Sitka Small", Font.PLAIN, 14));
 		menuPanel.add(btnLogout);
 		
 		JButton btnSettings = new JButton("Settings");
-		btnSettings.setBounds(545, 45, 89, 23);
+		btnSettings.setBackground(SystemColor.activeCaption);
+		btnSettings.setBounds(534, 52, 100, 30);
+		btnSettings.setFont(new Font("Sitka Small", Font.PLAIN, 14));
 		menuPanel.add(btnSettings);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(SystemColor.activeCaption);
+		panel_2.setBounds(0, 0, 644, 371);
+		menuPanel.add(panel_2);
+		panel_2.setLayout(null);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(SystemColor.window);
+		panel_3.setBounds(10, 80, 324, 227);
+		panel_2.add(panel_3);
+		
+		JButton btnAddNew = new JButton("<html>Add Faculty,<br> Department, Program, <br>or Course</html>");
+		btnAddNew.setBounds(401, 170, 191, 79);
+		panel_2.add(btnAddNew);
+		btnAddNew.setBackground(SystemColor.activeCaption);
+		btnAddNew.setHorizontalAlignment(SwingConstants.LEADING);
+		btnAddNew.setFont(new Font("Sitka Small", Font.PLAIN, 14));
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(SystemColor.window);
+		panel_4.setBounds(519, 0, 125, 95);
+		panel_2.add(panel_4);
+		
+		JPanel panel_5 = new JPanel();
+		panel_5.setBackground(SystemColor.window);
+		panel_5.setBounds(386, 137, 220, 147);
+		panel_2.add(panel_5);
+		btnAddNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnLogout.addActionListener(new ActionListener()
 	    {
 	      public void actionPerformed(ActionEvent e)
@@ -183,6 +229,121 @@ public class CourseManagerGUI {
 	        
 	      }
 	    });
+		
+				
+				btnLogout.addActionListener(new ActionListener()
+			    {
+			      public void actionPerformed(ActionEvent e)
+			      {
+			        	//Switch to Login Panel
+			        	loginPanel.setVisible(true);
+			        	menuPanel.setVisible(false);
+			        
+			      }
+			    });
+				btnFaculty.addActionListener(new ActionListener()
+				{
+				    public void actionPerformed(ActionEvent e){
+				        //create and open Faculty window (but also disable Faculty button)
+				        try {
+				            FacultySearchPage facultyWindow = new FacultySearchPage();
+				            facultyWindow.setVisible(true);
+				            facultyWindow.addWindowListener(new SearchPageWindowListener(btnFaculty));
+
+				            btnLogout.addActionListener(new ActionListener()
+				            {
+				                public void actionPerformed(ActionEvent e)
+				                {
+				                    //Switch to Login Panel and close Faculty search page
+				                    loginPanel.setVisible(true);
+				                    menuPanel.setVisible(false);
+				                    facultyWindow.dispose();
+				                }
+				            });
+
+				        } catch (Exception a){
+				            a.printStackTrace();
+				        }
+
+				    }
+
+				});
+				btnDepartment.addActionListener(new ActionListener() {
+				    @Override
+				    public void actionPerformed(ActionEvent e) {
+				        //create and open Department window (but also disable Department button)
+				        try {
+				            DepartmentSearchPage departmentWindow = new DepartmentSearchPage();
+				            btnDepartment.setEnabled(false);
+				            departmentWindow.setVisible(true);
+				            departmentWindow.addWindowListener(new SearchPageWindowListener(btnDepartment));
+
+				            btnLogout.addActionListener(new ActionListener()
+				            {
+				                public void actionPerformed(ActionEvent e)
+				                {
+				                    //Switch to Login Panel and close Faculty search page
+				                    loginPanel.setVisible(true);
+				                    menuPanel.setVisible(false);
+				                    departmentWindow.dispose();
+				                }
+				            });
+
+				        } catch (Exception a){
+				            a.printStackTrace();
+				        }
+				    }
+				});
+				btnPrograms.addActionListener(new ActionListener() {
+				    @Override
+				    public void actionPerformed(ActionEvent e) {
+				        try {
+				            ProgramSearchPage programWindow = new ProgramSearchPage();
+				            btnPrograms.setEnabled(false);
+				            programWindow.setVisible(true);
+				            programWindow.addWindowListener(new SearchPageWindowListener(btnPrograms));
+
+				            btnLogout.addActionListener(new ActionListener()
+				            {
+				                public void actionPerformed(ActionEvent e)
+				                {
+				                    //Switch to Login Panel and close Faculty search page
+				                    loginPanel.setVisible(true);
+				                    menuPanel.setVisible(false);
+				                    programWindow.dispose();
+				                }
+				            });
+
+				        } catch (Exception a) {
+				            a.printStackTrace();
+				        }
+				    }
+				});
+				btnCourses.addActionListener(new ActionListener() {
+				    @Override
+				    public void actionPerformed(ActionEvent e) {
+				        try {
+				            CourseSearchPage courseWindow = new CourseSearchPage();
+				            btnCourses.setEnabled(false);
+				            courseWindow.setVisible(true);
+				            courseWindow.addWindowListener(new SearchPageWindowListener(btnCourses));
+
+				            btnLogout.addActionListener(new ActionListener()
+				            {
+				                public void actionPerformed(ActionEvent e)
+				                {
+				                    //Switch to Login Panel and close Faculty search page
+				                    loginPanel.setVisible(true);
+				                    menuPanel.setVisible(false);
+				                    courseWindow.dispose();
+				                }
+				            });
+
+				        } catch (Exception a) {
+				            a.printStackTrace();
+				        }
+				    }
+				});
 		loginMessage.setVisible(false);
 		
 		
@@ -277,123 +438,8 @@ public class CourseManagerGUI {
 		/**
 		 * Action Listener for when Logout Button pressed
 		 */
-
-		
-		btnLogout.addActionListener(new ActionListener()
-	    {
-	      public void actionPerformed(ActionEvent e)
-	      {
-	        	//Switch to Login Panel
-	        	loginPanel.setVisible(true);
-	        	menuPanel.setVisible(false);
-	        
-	      }
-	    });
         /**
         * Action Listeners for when the Faculty, Department, Program and Course buttons under search are hit
          */
-        btnFaculty.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e){
-                //create and open Faculty window (but also disable Faculty button)
-                try {
-                    FacultySearchPage facultyWindow = new FacultySearchPage();
-                    facultyWindow.setVisible(true);
-                    facultyWindow.addWindowListener(new SearchPageWindowListener(btnFaculty));
-
-                    btnLogout.addActionListener(new ActionListener()
-                    {
-                        public void actionPerformed(ActionEvent e)
-                        {
-                            //Switch to Login Panel and close Faculty search page
-                            loginPanel.setVisible(true);
-                            menuPanel.setVisible(false);
-                            facultyWindow.dispose();
-                        }
-                    });
-
-                } catch (Exception a){
-                    a.printStackTrace();
-                }
-
-            }
-
-        });
-        btnDepartment.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //create and open Department window (but also disable Department button)
-                try {
-                    DepartmentSearchPage departmentWindow = new DepartmentSearchPage();
-                    btnDepartment.setEnabled(false);
-                    departmentWindow.setVisible(true);
-                    departmentWindow.addWindowListener(new SearchPageWindowListener(btnDepartment));
-
-                    btnLogout.addActionListener(new ActionListener()
-                    {
-                        public void actionPerformed(ActionEvent e)
-                        {
-                            //Switch to Login Panel and close Faculty search page
-                            loginPanel.setVisible(true);
-                            menuPanel.setVisible(false);
-                            departmentWindow.dispose();
-                        }
-                    });
-
-                } catch (Exception a){
-                    a.printStackTrace();
-                }
-            }
-        });
-        btnPrograms.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    ProgramSearchPage programWindow = new ProgramSearchPage();
-                    btnPrograms.setEnabled(false);
-                    programWindow.setVisible(true);
-                    programWindow.addWindowListener(new SearchPageWindowListener(btnPrograms));
-
-                    btnLogout.addActionListener(new ActionListener()
-                    {
-                        public void actionPerformed(ActionEvent e)
-                        {
-                            //Switch to Login Panel and close Faculty search page
-                            loginPanel.setVisible(true);
-                            menuPanel.setVisible(false);
-                            programWindow.dispose();
-                        }
-                    });
-
-                } catch (Exception a) {
-                    a.printStackTrace();
-                }
-            }
-        });
-        btnCourses.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    CourseSearchPage courseWindow = new CourseSearchPage();
-                    btnCourses.setEnabled(false);
-                    courseWindow.setVisible(true);
-                    courseWindow.addWindowListener(new SearchPageWindowListener(btnCourses));
-
-                    btnLogout.addActionListener(new ActionListener()
-                    {
-                        public void actionPerformed(ActionEvent e)
-                        {
-                            //Switch to Login Panel and close Faculty search page
-                            loginPanel.setVisible(true);
-                            menuPanel.setVisible(false);
-                            courseWindow.dispose();
-                        }
-                    });
-
-                } catch (Exception a) {
-                    a.printStackTrace();
-                }
-            }
-        });
 }
 }
