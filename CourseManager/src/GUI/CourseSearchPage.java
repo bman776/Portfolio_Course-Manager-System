@@ -22,7 +22,7 @@ public class CourseSearchPage extends JFrame {
     //constructor
     public CourseSearchPage(){
     	setResizable(false);
-        setTitle("Faculty Page");
+        setTitle("Courses Page");
         setBounds(100,100, 500, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
