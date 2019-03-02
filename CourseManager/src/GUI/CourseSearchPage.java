@@ -59,26 +59,26 @@ public class CourseSearchPage extends JFrame {
         coursePanel.add(panel);
         panel.setLayout(null);
         
-                courseNameField = new JTextField();
-                courseNameField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-                courseNameField.setBounds(165, 285, 250, 25);
-                panel.add(courseNameField);
-                
-                        searchButton = new JButton("Search for Course");
-                        searchButton.setBackground(SystemColor.activeCaption);
-                        searchButton.setBounds(165, 360, 175, 30);
-                        panel.add(searchButton);
-                        searchButton.setFont(new Font("Sitka Small", Font.PLAIN, 14));
+        courseNameField = new JTextField();
+        courseNameField.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        courseNameField.setBounds(165, 285, 250, 25);
+        panel.add(courseNameField);
+              
+        searchButton = new JButton("Search for Course");
+        searchButton.setBackground(SystemColor.activeCaption);
+        searchButton.setBounds(165, 360, 175, 30);
+        panel.add(searchButton);
+        searchButton.setFont(new Font("Sitka Small", Font.PLAIN, 14));
                         
-                                searchLabel = new JLabel("Search for a Course");
-                                searchLabel.setBounds(111, 260, 150, 15);
-                                panel.add(searchLabel);
-                                searchLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        searchLabel = new JLabel("Search for a Course");
+        searchLabel.setBounds(111, 260, 150, 15);
+        panel.add(searchLabel);
+        searchLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
                                 
-                                        courseLabel = new JLabel("Courses:");
-                                        courseLabel.setBounds(177, 0, 100, 30);
-                                        panel.add(courseLabel);
-                                        courseLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        courseLabel = new JLabel("Courses:");
+        courseLabel.setBounds(177, 0, 100, 30);
+        panel.add(courseLabel);
+        courseLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
 
     }
 
