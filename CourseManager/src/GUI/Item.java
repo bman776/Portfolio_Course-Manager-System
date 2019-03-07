@@ -5,17 +5,24 @@ public class Item {
 	protected String name;
 	protected int ID;
 	protected String description;
+	protected int[] children;
 	
 	
-	public Item(String type, String name, int ID, String description) {
+	public Item(String type, String name, int ID, String description, int[] children) {
 	//	super();
 		this.type = type;
 		this.name = name;
 		this.ID = ID;
 		this.description = description;
+		
+		this.children = new int[children.length];
+		for(int i = 0;i<children.length;i++) {
+			this.children[i] = children[i];
+		}
 	}
 	
-		
+
+
 	public String getType() {
 		return type;
 	}

@@ -14,8 +14,7 @@ public class ProgramSearchPage extends JFrame {
     private JTextField programNumberField;
     private JComboBox programList;  //becomes scrollable after 8 elements
     private JPanel programPanel;
-    private String[] dummyPrograms = {"Program1","Program2","Program3","Program4","Program5","Program6","Program7",
-            "Program8", "Program9"};
+    private String[] dummyPrograms = (String[]) CSVTools.findList("program");
     private JButton searchButton;
     private JPanel panel;
 

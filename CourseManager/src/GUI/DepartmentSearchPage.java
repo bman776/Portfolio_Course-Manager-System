@@ -14,8 +14,7 @@ public class DepartmentSearchPage extends JFrame {
     private JTextField departmentNumberField;
     private JComboBox departmentList;  //becomes scrollable after 8 elements
     private JPanel departmentPanel;
-    private String[] dummyDepartments = {"Department1","Department2","Department3","Department4","Department5",
-            "Department6","Department7","Department8","Department9"};
+    private String[] dummyDepartments = (String[]) CSVTools.findList("department");
     private JButton searchButton;
     private JPanel panel;
 

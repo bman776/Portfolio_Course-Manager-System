@@ -16,12 +16,12 @@ public class FacultySearchPage extends JFrame {
     private JTextField facultyNumberField;
     private JComboBox facultyList;  //becomes scrollable after 8 elements
     private JPanel facultyPanel;
-    private String[] dummyFaculties = {"Faculty1","Faculty2","Faculty3","Faculty4","Faculty5","Faculty6","Faculty7",
-            "Faculty8","Faculty9"};
+    private String[] dummyFaculties =  (String[]) CSVTools.findList("faculty");
     private JButton searchButton;
     private JPanel panel;
+    
 
-    //constructor
+    //constuctor
     public FacultySearchPage(){
     	setResizable(false);
         setTitle("Faculty Page");

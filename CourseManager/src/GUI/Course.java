@@ -20,7 +20,7 @@ public class Course extends Item {
 //	String type, String name, int ID, String description
 
 	public Course(String name, int ID, String description, double hours, double credits, String labinfo, Course prerequisites, Course antirequisites) {
-		super("Course", name, ID, description);
+		super("Course", name, ID, description, null);
 		this.hours = hours;
 		this.credits = credits;
 		this.labinfo = labinfo;
@@ -87,12 +87,6 @@ public class Course extends Item {
 		return "Course [hours=" + hours + ", credits=" + credits + ", labinfo=" + labinfo + ", prerequisites="
 				+ prerequisites + ", antirequisites=" + antirequisites + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
+
 
 }
