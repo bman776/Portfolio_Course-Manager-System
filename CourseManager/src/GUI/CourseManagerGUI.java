@@ -215,8 +215,29 @@ public class CourseManagerGUI {
 		panel_5.setBackground(SystemColor.window);
 		panel_5.setBounds(386, 137, 220, 147);
 		panel_2.add(panel_5);
+		
+		
 		btnAddNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try {
+					AddPage addWindow = new AddPage();
+					addWindow.setVisible(true);
+					addWindow.addWindowListener(new SearchPageWindowListener(btnAddNew));
+
+					btnLogout.addActionListener(new ActionListener()
+					{
+						public void actionPerformed(ActionEvent e)
+						{
+							//Switch to Login Panel and close add page
+							loginPanel.setVisible(true);
+							menuPanel.setVisible(false);
+							addWindow.dispose();
+						}
+					});
+
+				} catch (Exception a){
+					a.printStackTrace();
+				}
 			}
 		});
 		btnLogout.addActionListener(new ActionListener()
