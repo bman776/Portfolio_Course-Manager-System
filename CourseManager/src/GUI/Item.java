@@ -1,24 +1,24 @@
 package GUI;
 
 public class Item {
-	protected String type;
-	protected String name;
-	protected int ID;
-	protected String letterID;
-	protected String description;
-	protected int[] children;
+	protected String type; //type can have one of four values: "faculty", "department", "program", and "course"
+	protected String name; //the name can be whatever the user desires
+	protected int ID; //ID can be whatever 4 digit number the user desires
+	protected String description; //Description can be a string of text detailing whatever the user wants
+	protected int[] children; //contains the ID numbers of the children items which belong to the item
+	protected int parent; //contains the ID number of the parent item which the item belongs to
 	
-	
-	public Item(String type, String name, int ID, String letterID, String description, int[] children) {
+	//Constructor
+	public Item(String type, String name, int ID, String description, int[] children, int parent) {
 		this.type = type;
 		this.name = name;
 		this.ID = ID;
-		this.letterID = letterID;
 		this.description = description;
 		this.children = new int[children.length];
 		for(int i = 0;i<children.length;i++) {
 			this.children[i] = children[i];
 		}
+		this.parent = parent;
 	}
 
 	//Getters and Setters
@@ -46,10 +46,6 @@ public class Item {
 		ID = iD;
 	}
 
-	public String getLetterID() { return letterID; }
-
-	public void setLetterID(String letterID) { this.letterID = letterID; }
-	
 	public String getDescription() { return description; }
 	
 	public void setDescription(String description) {
@@ -59,5 +55,8 @@ public class Item {
 	public int[] getChildren(){ return children; }
 
 	public void setChildren( int[] children) { this.children = children; }
-	
+
+	public int getParent() { return parent; }
+
+	public void setParent(int parent) { this.parent = parent; }
 }
