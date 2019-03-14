@@ -1,5 +1,5 @@
 3
-<id>,<stringID>,<name>,<description>,<prerequisite>,<antirequisite>,<labinfo>,<hours>,<credits>
+<id>,<name>,<description>,<prerequisite>,<antirequisite>,<labinfo>,<hours>,<credits>,<parentID>,<childID's...>
 "000000000","CRSE","Data Structure and Algorithms","This is Data Structure and Algorithms","/","/","No labs","20","3"
 "000000001","CRSE","Programming Paradigms","This is Programming Paradigms","/","/","No labs","20","3"
 "000001000","CRSE","QC","This is QC","/","/","No labs","20","3"
