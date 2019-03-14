@@ -70,6 +70,7 @@ public class CourseManagerGUI {
 		frmCourseAndProgram.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCourseAndProgram.getContentPane().setLayout(null);
 		JPanel loginPanel = new JPanel();
+		loginPanel.setBackground(new Color(176, 196, 222));
 		loginPanel.setBounds(0, 0, 644, 371);
 		frmCourseAndProgram.getContentPane().add(loginPanel);
 		loginPanel.setLayout(null);
@@ -99,56 +100,43 @@ public class CourseManagerGUI {
 		
 		//Log in Button
 		JButton btnLogin = new JButton("Log In");
-		btnLogin.setBackground(SystemColor.activeCaption);
+		btnLogin.setBackground(new Color(176, 196, 222));
 		btnLogin.setFont(new Font("Sitka Small", Font.PLAIN, 18));
 		btnLogin.setBounds(400, 250, 150, 30);
 		loginPanel.add(btnLogin);
+
+		JLabel lblCourseAndProgram = new JLabel("<html>Course and <br>Program Manager</html>");
+		lblCourseAndProgram.setBackground(new Color(176, 196, 222));
+		lblCourseAndProgram.setBounds(28, 93, 278, 182);
+		loginPanel.add(lblCourseAndProgram);
+		lblCourseAndProgram.setFont(new Font("Sitka Small", Font.PLAIN, 25));
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.activeCaption);
-		panel.setBounds(0, 0, 345, 371);
-		loginPanel.add(panel);
-		panel.setLayout(null);
-		
-		JPanel blueLoginPanel = new JPanel();
-		blueLoginPanel.setBackground(SystemColor.activeCaption);
-		blueLoginPanel.setBounds(0, 0, 345, 371);
-		loginPanel.add(blueLoginPanel);
-		blueLoginPanel.setLayout(null);
-				
 		JPanel whiteLoginPanel = new JPanel();
 		whiteLoginPanel.setBackground(Color.WHITE);
 		whiteLoginPanel.setBounds(342, 0, 302, 371);
 		loginPanel.add(whiteLoginPanel);
 		whiteLoginPanel.setLayout(null);
-		
 
-		JLabel lblCourseAndProgram = new JLabel("<html>Course and <br>Program Manager</html>");
-		lblCourseAndProgram.setFont(new Font("Sitka Small", Font.PLAIN, 25));
-		lblCourseAndProgram.setBounds(28, 72, 278, 182);
-		panel.add(lblCourseAndProgram);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.WHITE);
-		panel_1.setBounds(342, 0, 302, 371);
-		loginPanel.add(panel_1);
-		panel_1.setLayout(null);
-		
 		JLabel loginMessage = new JLabel("<html>Wrong Username and <br>Password Combination</html>");
-		loginMessage.setBounds(38, 289, 210, 48);
-		panel_1.add(loginMessage);
+		loginMessage.setBounds(37, 293, 210, 48);
+		whiteLoginPanel.add(loginMessage);
 		loginMessage.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		loginMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		loginMessage.setForeground(Color.RED);
+		loginMessage.setVisible(false);
+		
+		/*
+		 * Create menu panel and add components
+		 */
 		JPanel menuPanel = new JPanel();
-		menuPanel.setBackground(SystemColor.window);
+		menuPanel.setBackground(new Color(176, 196, 222));
 		menuPanel.setBounds(0, 0, 644, 371);
 		frmCourseAndProgram.getContentPane().add(menuPanel);
 		menuPanel.setVisible(false);
 		menuPanel.setLayout(null);
 		
 		JButton btnCourses = new JButton("Courses");
-		btnCourses.setBackground(SystemColor.activeCaption);
+		btnCourses.setBackground(new Color(176, 196, 222));
 		btnCourses.setBounds(110, 250, 120, 30);
 		btnCourses.setFont(new Font("Sitka Small", Font.PLAIN, 14));
 		menuPanel.add(btnCourses);
@@ -159,63 +147,153 @@ public class CourseManagerGUI {
 		menuPanel.add(lblSearch);
 		
 		JButton btnFaculty = new JButton("Faculty");
-		btnFaculty.setBackground(SystemColor.activeCaption);
+		btnFaculty.setBackground(new Color(176, 196, 222));
 		btnFaculty.setBounds(110, 130, 120, 30);
 		btnFaculty.setFont(new Font("Sitka Small", Font.PLAIN, 14));
 		menuPanel.add(btnFaculty);
 		
 		JButton btnDepartment = new JButton("Department");
-		btnDepartment.setBackground(SystemColor.activeCaption);
+		btnDepartment.setBackground(new Color(176, 196, 222));
 		btnDepartment.setBounds(110, 170, 120, 30);
 		btnDepartment.setFont(new Font("Sitka Small", Font.PLAIN, 14));
 		menuPanel.add(btnDepartment);
 		
 		JButton btnPrograms = new JButton("Programs");
-		btnPrograms.setBackground(SystemColor.activeCaption);
+		btnPrograms.setBackground(new Color(176, 196, 222));
 		btnPrograms.setBounds(110, 210, 120, 30);
 		btnPrograms.setFont(new Font("Sitka Small", Font.PLAIN, 14));
 		menuPanel.add(btnPrograms);
 		
 		JButton btnLogout = new JButton("Logout");
-		btnLogout.setBackground(SystemColor.activeCaption);
+		btnLogout.setBackground(new Color(176, 196, 222));
 		btnLogout.setBounds(534, 11, 100, 30);
 		btnLogout.setFont(new Font("Sitka Small", Font.PLAIN, 14));
 		menuPanel.add(btnLogout);
 		
 		JButton btnSettings = new JButton("Settings");
-		btnSettings.setBackground(SystemColor.activeCaption);
+		btnSettings.setBackground(new Color(176, 196, 222));
 		btnSettings.setBounds(534, 52, 100, 30);
 		btnSettings.setFont(new Font("Sitka Small", Font.PLAIN, 14));
 		menuPanel.add(btnSettings);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(SystemColor.activeCaption);
-		panel_2.setBounds(0, 0, 644, 371);
-		menuPanel.add(panel_2);
-		panel_2.setLayout(null);
+		JPanel searchWhitePanel = new JPanel();
+		searchWhitePanel.setBounds(10, 86, 324, 227);
+		menuPanel.add(searchWhitePanel);
+		searchWhitePanel.setBackground(SystemColor.window);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(SystemColor.window);
-		panel_3.setBounds(10, 80, 324, 227);
-		panel_2.add(panel_3);
+		JPanel menuTopRight = new JPanel();
+		menuTopRight.setBounds(519, 0, 125, 95);
+		menuPanel.add(menuTopRight);
+		menuTopRight.setBackground(SystemColor.window);
+		
+		JPanel addWhitePanel = new JPanel();
+		addWhitePanel.setBounds(384, 130, 220, 147);
+		menuPanel.add(addWhitePanel);
+		addWhitePanel.setBackground(SystemColor.window);
+		addWhitePanel.setLayout(null);
 		
 		JButton btnAddNew = new JButton("<html>Add Faculty,<br> Department, Program, <br>or Course</html>");
-		btnAddNew.setBounds(401, 170, 191, 79);
-		panel_2.add(btnAddNew);
+		btnAddNew.setBounds(13, 35, 190, 85);
+		addWhitePanel.add(btnAddNew);
 		btnAddNew.setBackground(SystemColor.activeCaption);
 		btnAddNew.setHorizontalAlignment(SwingConstants.LEADING);
 		btnAddNew.setFont(new Font("Sitka Small", Font.PLAIN, 14));
+		JPanel settingsPanel = new JPanel();
+		settingsPanel.setBackground(new Color(176, 196, 222));
+		settingsPanel.setBounds(0, 0, 644, 371);
+		frmCourseAndProgram.getContentPane().add(settingsPanel);
+		settingsPanel.setLayout(null);
 		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(SystemColor.window);
-		panel_4.setBounds(519, 0, 125, 95);
-		panel_2.add(panel_4);
 		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(SystemColor.window);
-		panel_5.setBounds(386, 137, 220, 147);
-		panel_2.add(panel_5);
+		/**
+		 * Settings Panel
+		 */
+
 		
+		/**
+		 * Action Listener for Login Button
+		 */
+		btnLogin.addActionListener(new ActionListener()
+	    {
+	      public void actionPerformed(ActionEvent e)
+	      {
+	        String usernameInput = usernameField.getText();
+	        String pwInput = "";
+	        
+	        char[] passwordArr = passwordField.getPassword();
+	        int pwLength = passwordArr.length;
+	        for(int i =0; i < pwLength; i++) {
+	        	pwInput += passwordArr[i];
+	        }
+	        
+
+	        
+	        // Prints to help check getting proper input
+	        //System.out.println(usernameInput);
+	        //System.out.println(pwInput);
+
+	        if(usernameInput.equals(testUsername) && pwInput.equals(testPassword)) {
+	        	
+	        	//Switch to Menu Panel
+	        	loginPanel.setVisible(false);
+	        	menuPanel.setVisible(true);
+	        	
+	        	//Clear username and password inputed so user doesn't have to clear text field after logout
+	        	usernameField.setText(null);
+	        	passwordField.setText(null);
+	        	loginMessage.setVisible(false);
+	        	
+	        }
+	        
+	        else {
+	        	// Incorrect Username and Password Combination, display message and clear password field
+	        	loginMessage.setVisible(true);
+	        	passwordField.setText(null);
+	        }
+	        
+	        
+	      }
+	    });
+		passwordField.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+			        String usernameInput = usernameField.getText();
+			        String pwInput = "";
+			        
+			        char[] passwordArr = passwordField.getPassword();
+			        int pwLength = passwordArr.length;
+			        for(int i =0; i < pwLength; i++) {
+			        	pwInput += passwordArr[i];
+			        }
+			        
+
+			        
+			        // Prints to help check getting proper input
+			        //System.out.println(usernameInput);
+			        //System.out.println(pwInput);
+
+			        if(usernameInput.equals(testUsername) && pwInput.equals(testPassword)) {
+			        	
+			        	//Switch to Menu Panel
+			        	loginPanel.setVisible(false);
+			        	menuPanel.setVisible(true);
+			        	
+			        	//Clear username and password inputed so user doesn't have to clear text field after logout
+			        	usernameField.setText(null);
+			        	passwordField.setText(null);
+			        	loginMessage.setVisible(false);
+			        	
+			        }
+			        
+			        else {
+			        	// Incorrect Username and Password Combination, display message and clear password field
+			        	loginMessage.setVisible(true);
+			        	passwordField.setText(null);
+			        }
+				}
+			}
+		});
+				
 		
 		btnAddNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -224,6 +302,9 @@ public class CourseManagerGUI {
 					addWindow.setVisible(true);
 					addWindow.addWindowListener(new SearchPageWindowListener(btnAddNew));
 
+					/**
+					 * Action Listener for when Logout Button pressed
+					 */
 					btnLogout.addActionListener(new ActionListener()
 					{
 						public void actionPerformed(ActionEvent e)
@@ -262,6 +343,12 @@ public class CourseManagerGUI {
 			        
 			      }
 			    });
+				
+				
+
+		        /**
+		        * Action Listeners for when the Faculty, Department, Program and Course buttons under search are hit
+		         */
 				btnFaculty.addActionListener(new ActionListener()
 				{
 				    public void actionPerformed(ActionEvent e){
@@ -365,102 +452,5 @@ public class CourseManagerGUI {
 				        }
 				    }
 				});
-		loginMessage.setVisible(false);
-		
-		
-		/*
-		 * Create menu panel and add components
-		 */
-		
-		/**
-		 * Action Listener for Login Button
-		 */
-		btnLogin.addActionListener(new ActionListener()
-	    {
-	      public void actionPerformed(ActionEvent e)
-	      {
-	        String usernameInput = usernameField.getText();
-	        String pwInput = "";
-	        
-	        char[] passwordArr = passwordField.getPassword();
-	        int pwLength = passwordArr.length;
-	        for(int i =0; i < pwLength; i++) {
-	        	pwInput += passwordArr[i];
-	        }
-	        
-
-	        
-	        // Prints to help check getting proper input
-	        //System.out.println(usernameInput);
-	        //System.out.println(pwInput);
-
-	        if(usernameInput.equals(testUsername) && pwInput.equals(testPassword)) {
-	        	
-	        	//Switch to Menu Panel
-	        	loginPanel.setVisible(false);
-	        	menuPanel.setVisible(true);
-	        	
-	        	//Clear username and password inputed so user doesn't have to clear text field after logout
-	        	usernameField.setText(null);
-	        	passwordField.setText(null);
-	        	loginMessage.setVisible(false);
-	        	
-	        }
-	        
-	        else {
-	        	// Incorrect Username and Password Combination, display message and clear password field
-	        	loginMessage.setVisible(true);
-	        	passwordField.setText(null);
-	        }
-	        
-	        
-	      }
-	    });
-		passwordField.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-			        String usernameInput = usernameField.getText();
-			        String pwInput = "";
-			        
-			        char[] passwordArr = passwordField.getPassword();
-			        int pwLength = passwordArr.length;
-			        for(int i =0; i < pwLength; i++) {
-			        	pwInput += passwordArr[i];
-			        }
-			        
-
-			        
-			        // Prints to help check getting proper input
-			        //System.out.println(usernameInput);
-			        //System.out.println(pwInput);
-
-			        if(usernameInput.equals(testUsername) && pwInput.equals(testPassword)) {
-			        	
-			        	//Switch to Menu Panel
-			        	loginPanel.setVisible(false);
-			        	menuPanel.setVisible(true);
-			        	
-			        	//Clear username and password inputed so user doesn't have to clear text field after logout
-			        	usernameField.setText(null);
-			        	passwordField.setText(null);
-			        	loginMessage.setVisible(false);
-			        	
-			        }
-			        
-			        else {
-			        	// Incorrect Username and Password Combination, display message and clear password field
-			        	loginMessage.setVisible(true);
-			        	passwordField.setText(null);
-			        }
-				}
-			}
-		});
-		
-		/**
-		 * Action Listener for when Logout Button pressed
-		 */
-        /**
-        * Action Listeners for when the Faculty, Department, Program and Course buttons under search are hit
-         */
 }
 }

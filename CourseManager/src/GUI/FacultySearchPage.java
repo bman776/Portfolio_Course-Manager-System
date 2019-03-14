@@ -30,7 +30,7 @@ public class FacultySearchPage extends JFrame {
         getContentPane().setLayout(null);
 
         facultyPanel = new JPanel();
-        facultyPanel.setBackground(SystemColor.activeCaption);
+        facultyPanel.setBackground(new Color(176, 196, 222));
         facultyPanel.setBounds(0,0, 494, 471);
         getContentPane().add(facultyPanel);
         facultyPanel.setLayout(null);
@@ -56,7 +56,7 @@ public class FacultySearchPage extends JFrame {
         facultyPanel.add(facultyNumberField);
 
         searchButton = new JButton("Search for Faculty");
-        searchButton.setBackground(SystemColor.activeCaption);
+        searchButton.setBackground(new Color(176, 196, 222));
         searchButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
         searchButton.setBounds(165,360, 175, 30);
         facultyPanel.add(searchButton);

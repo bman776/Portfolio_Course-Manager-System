@@ -3,6 +3,7 @@ package GUI;
 import javax.swing.*;
 import java.awt.SystemColor;
 import java.awt.Font;
+import java.awt.Color;
 
 
 public class ProgramSearchPage extends JFrame {
@@ -27,7 +28,7 @@ public class ProgramSearchPage extends JFrame {
         getContentPane().setLayout(null);
 
         programPanel = new JPanel();
-        programPanel.setBackground(SystemColor.activeCaption);
+        programPanel.setBackground(new Color(176, 196, 222));
         programPanel.setBounds(0,0, 494, 471);
         getContentPane().add(programPanel);
         programPanel.setLayout(null);
@@ -59,7 +60,7 @@ public class ProgramSearchPage extends JFrame {
 
         searchButton = new JButton("Search for Program");
         searchButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        searchButton.setBackground(SystemColor.activeCaption);
+        searchButton.setBackground(new Color(176, 196, 222));
         searchButton.setBounds(165,360, 175, 30);
         programPanel.add(searchButton);
         
