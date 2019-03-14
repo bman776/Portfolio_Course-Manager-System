@@ -1,36 +1,20 @@
-package GUI;
-
 public class Course extends Item {
 	private double hours;
 	private double credits;
 	private String labinfo;
-	private Course prerequisites;
-	private Course antirequisites;
-	
-//	public Course(double hours, double credits, String labinfo, Course prerequisites, Course antirequisites) {
-//		// super();
-//		this.hours = hours;
-//		this.credits = credits;
-//		this.labinfo = labinfo;
-//		this.prerequisites = prerequisites;
-//		this.antirequisites = antirequisites;
-//	}
+	private int[] prerequisites;
+	private int[] antirequisites;
 
-	
-//	String type, String name, int ID, String description
-
-	public Course(String name, int ID, String description, double hours, double credits, String labinfo, Course prerequisites, Course antirequisites) {
-		super("Course", name, ID, description, null);
+	//	String type, String name, int ID, String description
+	public Course(String name, int ID, String letterID, String description, double hours, double credits, String labinfo,
+				  int[] prerequisites, int[] antirequisites) {
+		super("Course", name, ID, letterID, description, null);
 		this.hours = hours;
 		this.credits = credits;
 		this.labinfo = labinfo;
 		this.prerequisites = prerequisites;
 		this.antirequisites = antirequisites;
-}
-	 
-
-	
-
+	}
 
 	public double getHours() {
 		return hours;
@@ -62,22 +46,22 @@ public class Course extends Item {
 	}
 
 
-	public Course getPrerequisites() {
+	public int[] getPrerequisites() {
 		return prerequisites;
 	}
 
 
-	public void setPrerequisites(Course prerequisites) {
+	public void setPrerequisites(int[] prerequisites) {
 		this.prerequisites = prerequisites;
 	}
 
 
-	public Course getAntirequisites() {
+	public int[] getAntirequisites() {
 		return antirequisites;
 	}
 
 
-	public void setAntirequisites(Course antirequisites) {
+	public void setAntirequisites(int[] antirequisites) {
 		this.antirequisites = antirequisites;
 	}
 
