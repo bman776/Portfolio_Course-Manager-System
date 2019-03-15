@@ -19,6 +19,8 @@ public class Item {
 			this.children[i] = children[i];
 		}
 		this.parent = parent;
+		if(type.equals("faculty"))
+			this.parent = 65535;	//faculty's parentID is 65535.
 	}
 
 	//Getters and Setters

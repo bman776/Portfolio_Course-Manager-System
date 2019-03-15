@@ -10,7 +10,7 @@ public class Course extends Item {
 	//Constructor
 	public Course(String name, int ID, String description, int parent, double hours, double credits, String labinfo,
 				  int[] prerequisites, int[] antirequisites) {
-		super("Course", name, ID, description, null, parent);
+		super("course", name, ID, description, new int[0], parent); //we have a length 0 int array here.
 		this.hours = hours;
 		this.credits = credits;
 		this.labinfo = labinfo;
