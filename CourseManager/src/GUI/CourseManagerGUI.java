@@ -13,6 +13,9 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import Data.Login;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -25,16 +28,19 @@ import java.awt.event.KeyEvent;
 
 public class CourseManagerGUI {
 
-	/*
-	 * Default username and password
-	 */
-	private String testUsername = "admin";
-	private String testPassword = "Password1";
 	
+	//Create Instance of Login Class
+	Login logins = new Login();
 
 	private JFrame frmCourseAndProgram;
 	private JTextField usernameField;
 	private JPasswordField passwordField;
+	private JTextField txtCurrentUsername;
+	private JTextField txtNewUsername;
+	private JTextField txtRepeatUsername;
+	private JPasswordField ReenteredPasswordField;
+	private JPasswordField newPasswordField;
+	private JPasswordField currentPasswordField;
 	
 	/**
 	 * Launch the application.
@@ -69,10 +75,14 @@ public class CourseManagerGUI {
 		frmCourseAndProgram.setBounds(100, 100, 650, 400);
 		frmCourseAndProgram.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCourseAndProgram.getContentPane().setLayout(null);
+		
+		/*
+		 * Create menu panel and add components
+		 */
 		JPanel loginPanel = new JPanel();
-		loginPanel.setBackground(new Color(176, 196, 222));
 		loginPanel.setBounds(0, 0, 644, 371);
 		frmCourseAndProgram.getContentPane().add(loginPanel);
+		loginPanel.setBackground(new Color(176, 196, 222));
 		loginPanel.setLayout(null);
 		
 		// Username Label
@@ -104,7 +114,7 @@ public class CourseManagerGUI {
 		btnLogin.setFont(new Font("Sitka Small", Font.PLAIN, 18));
 		btnLogin.setBounds(400, 250, 150, 30);
 		loginPanel.add(btnLogin);
-
+		
 		JLabel lblCourseAndProgram = new JLabel("<html>Course and <br>Program Manager</html>");
 		lblCourseAndProgram.setBackground(new Color(176, 196, 222));
 		lblCourseAndProgram.setBounds(28, 93, 278, 182);
@@ -116,7 +126,7 @@ public class CourseManagerGUI {
 		whiteLoginPanel.setBounds(342, 0, 302, 371);
 		loginPanel.add(whiteLoginPanel);
 		whiteLoginPanel.setLayout(null);
-
+		
 		JLabel loginMessage = new JLabel("<html>Wrong Username and <br>Password Combination</html>");
 		loginMessage.setBounds(37, 293, 210, 48);
 		whiteLoginPanel.add(loginMessage);
@@ -124,10 +134,7 @@ public class CourseManagerGUI {
 		loginMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		loginMessage.setForeground(Color.RED);
 		loginMessage.setVisible(false);
-		
-		/*
-		 * Create menu panel and add components
-		 */
+
 		JPanel menuPanel = new JPanel();
 		menuPanel.setBackground(new Color(176, 196, 222));
 		menuPanel.setBounds(0, 0, 644, 371);
@@ -198,62 +205,156 @@ public class CourseManagerGUI {
 		btnAddNew.setBackground(SystemColor.activeCaption);
 		btnAddNew.setHorizontalAlignment(SwingConstants.LEADING);
 		btnAddNew.setFont(new Font("Sitka Small", Font.PLAIN, 14));
+		
 		JPanel settingsPanel = new JPanel();
-		settingsPanel.setBackground(new Color(176, 196, 222));
-		settingsPanel.setBounds(0, 0, 644, 371);
+		settingsPanel.setBounds(0, 0, 645, 370);
 		frmCourseAndProgram.getContentPane().add(settingsPanel);
+		settingsPanel.setBackground(new Color(176, 196, 222));
+		settingsPanel.setVisible(false);
 		settingsPanel.setLayout(null);
 		
+		JButton btnBack = new JButton("Back");
+		btnBack.setBounds(520, 20, 85, 30);
+		settingsPanel.add(btnBack);
+		btnBack.setBackground(new Color(176, 196, 222));
+		btnBack.setFont(new Font("Sitka Small", Font.PLAIN, 12));
 		
-		/**
-		 * Settings Panel
-		 */
-
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBounds(25, 11, 610, 47);
+		settingsPanel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblUsernameAndPassword = new JLabel("Username and Password Settings");
+		lblUsernameAndPassword.setFont(new Font("Sitka Small", Font.PLAIN, 16));
+		lblUsernameAndPassword.setBounds(20, 9, 450, 30);
+		panel_1.add(lblUsernameAndPassword);
+		
+		JPanel usernameSettingsPanel = new JPanel();
+		usernameSettingsPanel.setBackground(Color.WHITE);
+		usernameSettingsPanel.setBounds(25, 65, 275, 276);
+		settingsPanel.add(usernameSettingsPanel);
+		usernameSettingsPanel.setLayout(null);
+		
+		JLabel lblCurrentUsername = new JLabel("Current Username");
+		lblCurrentUsername.setFont(new Font("Sitka Small", Font.PLAIN, 11));
+		lblCurrentUsername.setBounds(10, 30, 125, 20);
+		usernameSettingsPanel.add(lblCurrentUsername);
+		
+		txtCurrentUsername = new JTextField();
+		txtCurrentUsername.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtCurrentUsername.setBounds(10, 55, 250, 25);
+		usernameSettingsPanel.add(txtCurrentUsername);
+		txtCurrentUsername.setColumns(10);
+		
+		JLabel lblNewUsername = new JLabel("New Username");
+		lblNewUsername.setFont(new Font("Sitka Small", Font.PLAIN, 11));
+		lblNewUsername.setBounds(10, 90, 125, 20);
+		usernameSettingsPanel.add(lblNewUsername);
+		
+		txtNewUsername = new JTextField();
+		txtNewUsername.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtNewUsername.setColumns(10);
+		txtNewUsername.setBounds(10, 115, 250, 25);
+		usernameSettingsPanel.add(txtNewUsername);
+		
+		JLabel lblVerifyNewUsername = new JLabel("Re-Enter New Username");
+		lblVerifyNewUsername.setFont(new Font("Sitka Small", Font.PLAIN, 11));
+		lblVerifyNewUsername.setBounds(10, 150, 140, 20);
+		usernameSettingsPanel.add(lblVerifyNewUsername);
+		
+		txtRepeatUsername = new JTextField();
+		txtRepeatUsername.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtRepeatUsername.setColumns(10);
+		txtRepeatUsername.setBounds(10, 175, 250, 25);
+		usernameSettingsPanel.add(txtRepeatUsername);
+		
+		JButton btnChangeUsername = new JButton("Change Username");
+		btnChangeUsername.setBackground(new Color(176, 196, 222));
+		btnChangeUsername.setFont(new Font("Sitka Small", Font.PLAIN, 12));
+		btnChangeUsername.setBounds(60, 225, 150, 30);
+		usernameSettingsPanel.add(btnChangeUsername);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(345, 65, 275, 276);
+		settingsPanel.add(panel);
+		
+		JLabel lblCurrentPassword = new JLabel("Current Password");
+		lblCurrentPassword.setFont(new Font("Sitka Small", Font.PLAIN, 11));
+		lblCurrentPassword.setBounds(10, 30, 125, 20);
+		panel.add(lblCurrentPassword);
+		
+		JLabel lblNewPassword = new JLabel("New Password");
+		lblNewPassword.setFont(new Font("Sitka Small", Font.PLAIN, 11));
+		lblNewPassword.setBounds(10, 90, 125, 20);
+		panel.add(lblNewPassword);
+		
+		JLabel lblReenterNewPassword = new JLabel("Re-Enter New Password");
+		lblReenterNewPassword.setFont(new Font("Sitka Small", Font.PLAIN, 11));
+		lblReenterNewPassword.setBounds(10, 150, 140, 20);
+		panel.add(lblReenterNewPassword);
+		
+		JButton btnChangePassword = new JButton("Change Password");
+		btnChangePassword.setFont(new Font("Sitka Small", Font.PLAIN, 12));
+		btnChangePassword.setBackground(new Color(176, 196, 222));
+		btnChangePassword.setBounds(60, 225, 150, 30);
+		panel.add(btnChangePassword);
+		
+		ReenteredPasswordField = new JPasswordField();
+		ReenteredPasswordField.setBounds(10, 175, 250, 25);
+		panel.add(ReenteredPasswordField);
+		
+		newPasswordField = new JPasswordField();
+		newPasswordField.setBounds(10, 115, 250, 25);
+		panel.add(newPasswordField);
+		
+		currentPasswordField = new JPasswordField();
+		currentPasswordField.setText("");
+		currentPasswordField.setBounds(10, 55, 250, 25);
+		panel.add(currentPasswordField);
 		
 		/**
 		 * Action Listener for Login Button
 		 */
-		btnLogin.addActionListener(new ActionListener()
-	    {
-	      public void actionPerformed(ActionEvent e)
-	      {
-	        String usernameInput = usernameField.getText();
-	        String pwInput = "";
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				String usernameInput = usernameField.getText();
+				String pwInput = "";
 	        
-	        char[] passwordArr = passwordField.getPassword();
-	        int pwLength = passwordArr.length;
-	        for(int i =0; i < pwLength; i++) {
-	        	pwInput += passwordArr[i];
+				char[] passwordArr = passwordField.getPassword();
+				int pwLength = passwordArr.length;
+				for(int i =0; i < pwLength; i++) {
+					pwInput += passwordArr[i];
 	        }
-	        
-
-	        
 	        // Prints to help check getting proper input
 	        //System.out.println(usernameInput);
 	        //System.out.println(pwInput);
 
-	        if(usernameInput.equals(testUsername) && pwInput.equals(testPassword)) {
+				if(logins.loginCheck(usernameInput, pwInput) == true) {
 	        	
-	        	//Switch to Menu Panel
-	        	loginPanel.setVisible(false);
-	        	menuPanel.setVisible(true);
+					//Switch to Menu Panel
+					loginPanel.setVisible(false);
+					menuPanel.setVisible(true);
 	        	
-	        	//Clear username and password inputed so user doesn't have to clear text field after logout
-	        	usernameField.setText(null);
-	        	passwordField.setText(null);
-	        	loginMessage.setVisible(false);
+					//Clear username and password inputed so user doesn't have to clear text field after logout
+					usernameField.setText(null);
+					passwordField.setText(null);
+					loginMessage.setVisible(false);
 	        	
 	        }
 	        
-	        else {
-	        	// Incorrect Username and Password Combination, display message and clear password field
-	        	loginMessage.setVisible(true);
-	        	passwordField.setText(null);
-	        }
+				else {
+					// Incorrect Username and Password Combination, display message and clear password field
+					loginMessage.setVisible(true);
+					passwordField.setText(null);
+				}
 	        
 	        
 	      }
 	    });
+		
 		passwordField.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -272,7 +373,7 @@ public class CourseManagerGUI {
 			        //System.out.println(usernameInput);
 			        //System.out.println(pwInput);
 
-			        if(usernameInput.equals(testUsername) && pwInput.equals(testPassword)) {
+			        if(logins.loginCheck(usernameInput, pwInput) == true) {
 			        	
 			        	//Switch to Menu Panel
 			        	loginPanel.setVisible(false);
@@ -293,7 +394,6 @@ public class CourseManagerGUI {
 				}
 			}
 		});
-				
 		
 		btnAddNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -452,5 +552,32 @@ public class CourseManagerGUI {
 				        }
 				    }
 				});
+	            
+	            btnSettings.addActionListener(new ActionListener()
+	            {
+	                public void actionPerformed(ActionEvent e)
+	                {
+	                    settingsPanel.setVisible(true);
+	                    menuPanel.setVisible(false);
+	                }
+	            });
+	            
+	            btnBack.addActionListener(new ActionListener()
+	            {
+	                public void actionPerformed(ActionEvent e)
+	                {
+	                    settingsPanel.setVisible(false);
+	                    menuPanel.setVisible(true);
+	                    
+	                    txtCurrentUsername.setText(null);
+	                    txtNewUsername.setText(null);
+	                    txtRepeatUsername.setText(null);
+	                    
+	                    currentPasswordField.setText(null);
+	                    newPasswordField.setText(null);
+	                    ReenteredPasswordField.setText(null);
+	                }
+	            });
+
 }
 }
