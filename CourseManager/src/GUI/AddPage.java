@@ -13,10 +13,9 @@ public class AddPage extends JFrame {
     private JButton btnAddFaculty;
     private JButton btnAddDepartment;
     private JButton btnAddProgram;
-    private JButton btnCreateCourse;
-    private JLabel courseCreatedConfirmation;
     private JButton btnCreateItem;
-    private JLabel itemCreatedConfrimation;
+    private JButton btnCreateCourse;
+    private JLabel itemCreationConfirmation;
     private JButton btnCancel;
     private JLabel errorMessage;
 
@@ -60,9 +59,6 @@ public class AddPage extends JFrame {
     private JLabel itemDescriptionLabel;
     private JTextArea itemDescriptionField;
     private JScrollPane itemDescriptionPane;
-    private JLabel itemChildrenLabel;
-    private JTextField itemChildrenField;
-    private JScrollPane itemChildrenPane;
 
     //Constructor
     public AddPage(){
@@ -89,13 +85,7 @@ public class AddPage extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 //Disable/Enable Buttons
-                btnAddFaculty.setEnabled(false);
-                btnAddDepartment.setEnabled(false);
-                btnAddProgram.setEnabled(false);
-                btnAddCourse.setEnabled(false);
-                btnCreateItem.setText("Create Faculty");
-                btnCreateItem.setVisible(true);
-                btnCancel.setVisible(true);
+                selectionMade("Create Faculty");
 
                 //Display addItemPanel
                 newItemLabel.setText("New Faculty");
@@ -103,11 +93,10 @@ public class AddPage extends JFrame {
                 itemNameField.setText("Enter Name of Faculty");
                 itemIDLabel.setText("Faculty ID:");
                 itemIDField.setText("Enter 4-digit ID # of Faculty");
+                itemParentLabel.setVisible(false);
                 itemParentField.setVisible(false);
                 itemDescriptionLabel.setText("Faculty Description");
                 itemDescriptionField.setText("Enter Faculty Description");
-                itemChildrenLabel.setText("Faculty Departments:");
-                itemChildrenField.setText("Enter Department ID #'s for Faculty");
                 addItemPanel.setVisible(true);
             }
         });
@@ -118,13 +107,29 @@ public class AddPage extends JFrame {
         btnAddDepartment.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                btnAddFaculty.setEnabled(false);
-                btnAddDepartment.setEnabled(false);
-                btnAddProgram.setEnabled(false);
-                btnAddCourse.setEnabled(false);
-                btnCreateItem.setText("Create Department");
-                btnCreateItem.setVisible(true);
-                btnCancel.setVisible(true);
+
+                if (CSVTools.fileIsEmpty("faculty")){
+                    errorMessage.setText("<html>No Faculties created:"+"<br/>"+
+                            "Faculties must be created for Dept.s</html>");
+                    errorMessage.setVisible(true);
+                    btnCancel.setVisible(true);
+
+                } else {
+                    selectionMade("Create Department");
+
+                    newItemLabel.setText("New Department");
+                    itemNameLabel.setText("Dept. Name:");
+                    itemNameField.setText("Enter Name of Dept.");
+                    itemIDLabel.setText("Dept. ID:");
+                    itemIDField.setText("Enter 4-digit ID # of Dept.");
+                    itemParentLabel.setVisible(true);
+                    itemParentField.setVisible(true);
+                    itemParentLabel.setText("Faculty of Dept.");
+                    itemParentField.setText("Enter 4-digit ID # of Faculty of Dept.");
+                    itemDescriptionLabel.setText("Department Description");
+                    itemDescriptionField.setText("Enter Department Description");
+                    addItemPanel.setVisible(true);
+                }
             }
         });
         addMenuPanel.add(btnAddDepartment);
@@ -134,13 +139,29 @@ public class AddPage extends JFrame {
         btnAddProgram.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                btnAddFaculty.setEnabled(false);
-                btnAddDepartment.setEnabled(false);
-                btnAddProgram.setEnabled(false);
-                btnAddCourse.setEnabled(false);
-                btnCreateItem.setText("Create Program");
-                btnCreateItem.setVisible(true);
-                btnCancel.setVisible(true);
+
+                if (CSVTools.fileIsEmpty("department")){
+                    errorMessage.setText("<html>No Dept.'s created:"+"<br/>"+
+                            "Dept.s must be created for Programs</html>");
+                    errorMessage.setVisible(true);
+                    btnCancel.setVisible(true);
+                } else {
+                    selectionMade("Create Program");
+
+                    newItemLabel.setText("New Program");
+                    itemNameLabel.setText("Prgm. Name:");
+                    itemNameField.setText("Enter Name of Program");
+                    itemIDLabel.setText("Prgm. ID:");
+                    itemIDField.setText("Enter 4-digit ID # of Program");
+                    itemParentLabel.setVisible(true);
+                    itemParentField.setVisible(true);
+                    itemParentLabel.setText("Dept. of Program:");
+                    itemParentField.setText("Enter 4-digit ID # of Dept. of program");
+                    itemDescriptionLabel.setText("Program Description");
+                    itemDescriptionField.setText("Enter Program Description");
+                    addItemPanel.setVisible(true);
+                }
+
             }
         });
         addMenuPanel.add(btnAddProgram);
@@ -150,43 +171,237 @@ public class AddPage extends JFrame {
         btnAddCourse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                btnAddFaculty.setEnabled(false);
-                btnAddDepartment.setEnabled(false);
-                btnAddProgram.setEnabled(false);
-                btnAddCourse.setEnabled(false);
-                addCoursePanel.setVisible(true);
-                btnCreateCourse.setVisible(true);
-                btnCancel.setVisible(true);
+
+                if (CSVTools.fileIsEmpty("program")){
+                    disableSelectionButtons();
+                    errorMessage.setText("<html>No Programs created:"+"<br/>"+
+                            "Programs must be created for Courses</html>");
+                    errorMessage.setVisible(true);
+                    btnCancel.setVisible(true);
+                } else {
+                    disableSelectionButtons();
+                    btnCreateCourse.setVisible(true);
+                    btnCancel.setVisible(true);
+                    itemCreationConfirmation.setVisible(false);
+                    addCoursePanel.setVisible(true);
+                }
             }
         });
         addMenuPanel.add(btnAddCourse);
-
-        btnCreateCourse = new JButton("Create Course");
-        btnCreateCourse.setBounds(65, 650, 150, 50);
-        addMenuPanel.add(btnCreateCourse);
-        btnCreateCourse.setVisible(false);
-
-        btnCreateItem = new JButton();
-        btnCreateItem.setBounds(65, 650, 150 , 50 );
-        addMenuPanel.add(btnCreateItem);
-        btnCreateItem.setVisible(false);
 
         btnCancel = new JButton("Cancel");
         btnCancel.setBounds(65, 590, 150, 50);
         btnCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                btnAddFaculty.setEnabled(true);
-                btnAddDepartment.setEnabled(true);
-                btnAddProgram.setEnabled(true);
-                btnAddCourse.setEnabled(true);
+                enableSelectionButtons();
                 btnCreateItem.setVisible(false);
+                errorMessage.setVisible(false);
                 btnCancel.setVisible(false);
+                addItemPanel.setVisible(false);
+                addCoursePanel.setVisible(false);
             }
         });
         addMenuPanel.add(btnCancel);
         btnCancel.setVisible(false);
 
+        btnCreateCourse = new JButton("Create Course");
+        btnCreateCourse.setBounds(65, 650, 150, 50);
+        btnCreateCourse.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //check for duplicate ID's
+                int [] facultyIDs = CSVTools.getIDList("faculty");
+                int [] departmentIDs = CSVTools.getIDList("department");
+                int [] programIDs = CSVTools.getIDList("program");
+                int [] courseIDs = CSVTools.getIDList("course");
+                for (int i = 0; i<facultyIDs.length; i++){
+                    if ( Integer.parseInt(courseIDField.getText()) == facultyIDs[i]){
+                        errorMessage.setText("<html>Duplicate Faculty ID found,<br/> enter different ID</html>");
+                        errorMessage.setVisible(true);
+                        return;
+                    }
+                }
+                for (int i = 0; i<departmentIDs.length; i++){
+                    if ( Integer.parseInt(courseIDField.getText()) == departmentIDs[i]){
+                        errorMessage.setText("<html>Duplicate Dept. ID found,<br/>enter different ID</html>");
+                        errorMessage.setVisible(true);
+                        return;
+                    }
+                }
+                for (int i = 0; i<programIDs.length; i++){
+                    if ( Integer.parseInt(courseIDField.getText()) == programIDs[i]){
+                        errorMessage.setText("<html>Duplicate program ID found,<br/> enter different ID</html>");
+                        errorMessage.setVisible(true);
+                        return;
+                    }
+                }
+                for (int i = 0; i<courseIDs.length; i++){
+                    if ( Integer.parseInt(courseIDField.getText()) == courseIDs[i]){
+                        errorMessage.setText("<html>Duplicate Course ID found,<br/> enter different ID</html>");
+                        errorMessage.setVisible(true);
+                        return;
+                    }
+                }
+                Course createdCourse = new Course (courseNameField.getText(), Integer.parseInt(courseIDField.getText()),
+                        courseDescriptionField.getText(), Integer.parseInt(courseProgramField.getText()),
+                        Double.parseDouble(courseHoursField.getText()), Double.parseDouble(courseCreditsField.getText()),
+                        courseDescriptionField.getText(), null, null);
+
+                //set Prereqs and Antireqs
+                if (!(coursePrereqField.getText().equals(""))) {
+                    String[] prereqString = coursePrereqField.getText().split(" ");
+                    int[] coursePrereqs = new int[prereqString.length];
+                    for (int i = 0; i < coursePrereqs.length; i++)
+                        coursePrereqs[i] = Integer.parseInt(prereqString[i]);
+                    createdCourse.setPrerequisites(coursePrereqs);
+                }
+                if (!(courseAntireqField.getText().equals(""))){
+                    String[] antireqString = courseAntireqField.getText().split(" ");
+                    int[] courseAnitreqs = new int[antireqString.length];
+                    for (int j = 0; j < courseAnitreqs.length; j++)
+                        courseAnitreqs[j] = Integer.parseInt(antireqString[j]);
+                    createdCourse.setAntirequisites(courseAnitreqs);
+                }
+
+                for (int i = 0; i< programIDs.length; i++){
+                    if (Integer.parseInt(courseProgramField.getText()) == programIDs[i])
+                        CSVTools.addChildIDtoParent(createdCourse);
+                    else {
+                        errorMessage.setText("<html>Invalid Program ID,<br/> enter different ID</html>");
+                        errorMessage.setVisible(true);
+                        return;
+                    }
+                }
+
+                CSVTools.addCourse(createdCourse);
+                itemCreationConfirmation.setText("Course Created");
+
+                addCoursePanel.setVisible(false);
+                addItemPanel.setVisible(false);
+                enableSelectionButtons();
+                btnCreateCourse.setVisible(false);
+                errorMessage.setVisible(false);
+                btnCancel.setVisible(false);
+                itemCreationConfirmation.setVisible(true);
+            }
+        });
+        addMenuPanel.add(btnCreateCourse);
+        btnCreateCourse.setVisible(false);
+
+
+        btnCreateItem = new JButton();
+        btnCreateItem.setBounds(65, 650, 150 , 50 );
+        btnCreateItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String itemType = "";
+                if (btnCreateItem.getText().equals("Create Faculty"))
+                    itemType = "faculty";
+                else if (btnCreateItem.getText().equals("Create Department"))
+                    itemType= "department";
+                else if (btnCreateItem.getText().equals("Create Program"))
+                    itemType = "program";
+
+                //check for duplicate ID's
+                int [] facultyIDs = CSVTools.getIDList("faculty");
+                int [] departmentIDs = CSVTools.getIDList("department");
+                int [] programIDs = CSVTools.getIDList("program");
+                int [] courseIDs = CSVTools.getIDList("course");
+                for (int i = 0; i<facultyIDs.length; i++){
+                    if ( Integer.parseInt(itemIDField.getText()) == facultyIDs[i]){
+                        errorMessage.setText("<html>Duplicate Faculty ID found,<br/> enter different ID</html>");
+                        errorMessage.setVisible(true);
+                        return;
+                    }
+                }
+                for (int i = 0; i<departmentIDs.length; i++){
+                    if ( Integer.parseInt(itemIDField.getText()) == departmentIDs[i]){
+                        errorMessage.setText("<html>Duplicate Dept. ID found,<br/>enter different ID</html>");
+                        errorMessage.setVisible(true);
+                        return;
+                    }
+                }
+                for (int i = 0; i<programIDs.length; i++){
+                    if ( Integer.parseInt(itemIDField.getText()) == programIDs[i]){
+                        errorMessage.setText("<html>Duplicate program ID found,<br/> enter different ID</html>");
+                        errorMessage.setVisible(true);
+                        return;
+                    }
+                }
+                for (int i = 0; i<courseIDs.length; i++){
+                    if ( Integer.parseInt(courseIDField.getText()) == courseIDs[i]){
+                        errorMessage.setText("<html>Duplicate Course ID found,<br/> enter different ID</html>");
+                        errorMessage.setVisible(true);
+                        return;
+                    }
+                }
+
+
+                //Create Item and add into database
+                if ( itemType.equals("faculty")){
+                    Item createdItem = new Item(itemType, itemNameField.getText(), Integer.parseInt(itemIDField.getText()),
+                            itemDescriptionField.getText(), null, 0);
+                    CSVTools.addItem(createdItem);
+                    itemCreationConfirmation.setText("Faculty Created");
+                }
+                else if ( itemType.equals("department")) {
+                    Item createdItem = new Item(itemType, itemNameField.getText(), Integer.parseInt(itemIDField.getText()),
+                            itemDescriptionField.getText(), null, Integer.parseInt(itemParentField.getText()));
+
+                    for (int i = 0; i< facultyIDs.length; i++){
+                        if (Integer.parseInt(itemParentField.getText()) == facultyIDs[i])
+                            CSVTools.addChildIDtoParent(createdItem);
+                        else {
+                            errorMessage.setText("<html>Invalid Faculty ID,<br/> enter different ID</html>");
+                            errorMessage.setVisible(true);
+                            return;
+                        }
+                    }
+
+                    CSVTools.addItem(createdItem);
+                    itemCreationConfirmation.setText("Dept. Created");
+
+                } else if (itemType.equals("program")) {
+                    Item createdItem = new Item(itemType, itemNameField.getText(), Integer.parseInt(itemIDField.getText()),
+                            itemDescriptionField.getText(), null, Integer.parseInt(itemParentField.getText()));
+                    for (int i = 0; i< departmentIDs.length; i++){
+                        if (Integer.parseInt(itemParentField.getText()) == departmentIDs[i])
+                            CSVTools.addChildIDtoParent(createdItem);
+                        else {
+                            errorMessage.setText("<html>Invalid Department ID,<br/> enter different ID</html>");
+                            errorMessage.setVisible(true);
+                            return;
+                        }
+                    }
+
+                    CSVTools.addItem(createdItem);
+                    itemCreationConfirmation.setText("Prgm. Created");
+                }
+
+
+                addCoursePanel.setVisible(false);
+                addItemPanel.setVisible(false);
+                enableSelectionButtons();
+                btnCreateItem.setVisible(false);
+                errorMessage.setVisible(false);
+                btnCancel.setVisible(false);
+                itemCreationConfirmation.setVisible(true);
+
+            }
+        });
+        addMenuPanel.add(btnCreateItem);
+        btnCreateItem.setVisible(false);
+
+        errorMessage = new JLabel();
+        errorMessage.setBounds(30, 475, 250, 50);
+        addMenuPanel.add(errorMessage);
+        errorMessage.setVisible(false);
+
+        itemCreationConfirmation = new JLabel();
+        itemCreationConfirmation.setBounds(30,400, 250, 50);
+        addMenuPanel.add(itemCreationConfirmation);
+        itemCreationConfirmation.setVisible(false);
 
         //Create addCoursePanel========================================================================================
         addCoursePanel = new JPanel();
@@ -288,7 +503,7 @@ public class AddPage extends JFrame {
         addCoursePanel.add(courseAntireqPane);
 
 
-        //Create addItemPanel
+        //Create addItemPanel==========================================================================================
         addItemPanel = new JPanel();
         addItemPanel.setBounds(280,0,620, 800);
         addItemPanel.setLayout(null);
@@ -334,18 +549,27 @@ public class AddPage extends JFrame {
         itemDescriptionPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         itemDescriptionPane.setBounds(60, 195,400,160);
         addItemPanel.add(itemDescriptionPane);
-
-        itemChildrenLabel = new JLabel();
-        itemChildrenLabel.setBounds(60, 380, 130, 30);
-        addItemPanel.add(itemChildrenLabel);
-
-        itemChildrenField = new JTextField();
-        itemChildrenField.setBounds(60,420, 310, 50);
-        itemChildrenPane = new JScrollPane(itemChildrenField);
-        itemChildrenPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        itemChildrenPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        itemChildrenPane.setBounds(60, 420, 310, 50);
-        addItemPanel.add(itemChildrenPane);
     }
 
+    private void selectionMade(String btnCreateItemText){
+        disableSelectionButtons();
+        btnCreateItem.setText(btnCreateItemText);
+        btnCreateItem.setVisible(true);
+        btnCancel.setVisible(true);
+        itemCreationConfirmation.setVisible(false);
+    }
+
+    private void disableSelectionButtons(){
+        btnAddFaculty.setEnabled(false);
+        btnAddDepartment.setEnabled(false);
+        btnAddProgram.setEnabled(false);
+        btnAddCourse.setEnabled(false);
+    }
+
+    private void enableSelectionButtons(){
+        btnAddFaculty.setEnabled(true);
+        btnAddDepartment.setEnabled(true);
+        btnAddProgram.setEnabled(true);
+        btnAddCourse.setEnabled(true);
+    }
 }
