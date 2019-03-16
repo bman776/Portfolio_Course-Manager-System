@@ -200,6 +200,7 @@ public class AddPage extends JFrame {
                 btnCancel.setVisible(false);
                 addItemPanel.setVisible(false);
                 addCoursePanel.setVisible(false);
+                btnCreateCourse.setVisible(false);
             }
         });
         addMenuPanel.add(btnCancel);
