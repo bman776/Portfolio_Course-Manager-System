@@ -15,12 +15,20 @@ public class ProgramSearchPage extends JFrame {
     private JTextField programNumberField;
     private JComboBox programList;  //becomes scrollable after 8 elements
     private JPanel programPanel;
-    private String[] dummyPrograms = (String[]) CSVTools.findList("program");
+    private String[] savedPrograms;
     private JButton searchButton;
     private JPanel panel;
 
     //constructor
     public ProgramSearchPage(){
+
+        String[] savedPrgmNames = CSVTools.getNameList("programs");
+        int[] savedPrgmIDs = CSVTools.getIDList("programs");
+        savedPrograms = new String[savedPrgmNames.length];
+        for (int i = 0; i<savedPrgmNames.length; i++){
+            savedPrograms[i] = "ID:"+savedPrgmIDs[i]+" Name: "+savedPrgmNames[i];
+        }
+
     	setResizable(false);
         setTitle("Program Page");
         setBounds(100,100, 500, 500);
@@ -38,7 +46,7 @@ public class ProgramSearchPage extends JFrame {
         programLabel.setBounds(200,0,100,50);
         programPanel.add(programLabel);
 
-        programList = new JComboBox(dummyPrograms);
+        programList = new JComboBox(savedPrograms);
         programList.setFont(new Font("Tahoma", Font.PLAIN, 13));
         programList.setBounds(100,45,300, 30);
         programPanel.add(programList);
