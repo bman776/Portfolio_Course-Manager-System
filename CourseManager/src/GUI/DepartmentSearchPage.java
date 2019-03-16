@@ -15,12 +15,20 @@ public class DepartmentSearchPage extends JFrame {
     private JTextField departmentNumberField;
     private JComboBox departmentList;  //becomes scrollable after 8 elements
     private JPanel departmentPanel;
-    private String[] dummyDepartments = (String[]) CSVTools.findList("department");
+    private String[] savedDepartments;
     private JButton searchButton;
     private JPanel panel;
 
     //constructor
     public DepartmentSearchPage(){
+        String[] savedDeptNames = CSVTools.getNameList("department");
+        int[] savedDeptIDs = CSVTools.getIDList("department");
+        savedDepartments = new String[savedDeptNames.length];
+        for (int i = 0; i<savedDeptNames.length; i++){
+            savedDepartments[i] = "ID:"+savedDeptIDs[i]+" Name: "+savedDeptNames[i];
+        }
+
+
     	setResizable(false);
         setTitle("Department Page");
         setBounds(100,100, 500, 500);
@@ -33,7 +41,7 @@ public class DepartmentSearchPage extends JFrame {
         getContentPane().add(departmentPanel);
         departmentPanel.setLayout(null);
 
-        departmentList = new JComboBox(dummyDepartments);
+        departmentList = new JComboBox(savedDepartments);
         departmentList.setFont(new Font("Tahoma", Font.PLAIN, 13));
         departmentList.setBounds(100,45,300, 30);
         departmentPanel.add(departmentList);
