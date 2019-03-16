@@ -1,8 +1,6 @@
 package GUI;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -16,13 +14,21 @@ public class FacultySearchPage extends JFrame {
     private JTextField facultyNumberField;
     private JComboBox facultyList;  //becomes scrollable after 8 elements
     private JPanel facultyPanel;
-    private String[] dummyFaculties =  (String[]) CSVTools.findList("faculty");
+    private String[] savedFaculties;
     private JButton searchButton;
     private JPanel panel;
     
 
     //constuctor
     public FacultySearchPage(){
+
+        String[] savedFacNames = CSVTools.getNameList("faculty");
+        int[] savedFacIDs = CSVTools.getIDList("faculty");
+        savedFaculties = new String[savedFacNames.length];
+        for (int i = 0; i<savedFacNames.length; i++){
+            savedFaculties[i] = "ID:"+savedFacIDs[i]+" Name: "+savedFacNames[i];
+        }
+
     	setResizable(false);
         setTitle("Faculty Page");
         setBounds(100,100, 500, 500);
@@ -35,7 +41,7 @@ public class FacultySearchPage extends JFrame {
         getContentPane().add(facultyPanel);
         facultyPanel.setLayout(null);
 
-        facultyList = new JComboBox(dummyFaculties);
+        facultyList = new JComboBox(savedFaculties);
         facultyList.setFont(new Font("Tahoma", Font.PLAIN, 13));
         facultyList.setBounds(100,45,300, 30);
         facultyPanel.add(facultyList);
