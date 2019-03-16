@@ -15,12 +15,21 @@ public class CourseSearchPage extends JFrame {
     private JTextField courseNumberField;
     private JComboBox courseList;  //becomes scrollable after 8 elements
     private JPanel coursePanel;
-    private String[] dummyCourses = (String[]) CSVTools.findList("course");
+    private String[] savedCourses;
     private JButton searchButton;
     private JPanel panel;
 
     //constructor
     public CourseSearchPage(){
+        //initialize savedCourses
+        String[] savedCourseNames = CSVTools.getNameList("course");
+        int[] savedCourseIDs = CSVTools.getIDList("course");
+        savedCourses = new String[savedCourseNames.length];
+        for (int i = 0; i<savedCourseNames.length; i++){
+            savedCourses[i] = "ID:"+savedCourseIDs[i]+" Name: "+savedCourseNames[i];
+        }
+
+
     	setResizable(false);
         setTitle("Faculty Page");
         setBounds(100,100, 500, 500);
@@ -33,7 +42,7 @@ public class CourseSearchPage extends JFrame {
         getContentPane().add(coursePanel);
         coursePanel.setLayout(null);
 
-        courseList = new JComboBox(dummyCourses);
+        courseList = new JComboBox(savedCourses);
         courseList.setFont(new Font("Tahoma", Font.PLAIN, 13));
         courseList.setBounds(100,45,300, 30);
         coursePanel.add(courseList);
@@ -64,21 +73,21 @@ public class CourseSearchPage extends JFrame {
                 courseNameField.setBounds(165, 285, 250, 25);
                 panel.add(courseNameField);
                 
-                        searchButton = new JButton("Search for Course");
-                        searchButton.setBackground(new Color(176, 196, 222));
-                        searchButton.setBounds(165, 360, 175, 30);
-                        panel.add(searchButton);
-                        searchButton.setFont(new Font("Sitka Small", Font.PLAIN, 14));
+                searchButton = new JButton("Search for Course");
+                searchButton.setBackground(new Color(176, 196, 222));
+                searchButton.setBounds(165, 360, 175, 30);
+                panel.add(searchButton);
+                searchButton.setFont(new Font("Sitka Small", Font.PLAIN, 14));
                         
-                                searchLabel = new JLabel("Search for a Course");
-                                searchLabel.setBounds(111, 260, 150, 15);
-                                panel.add(searchLabel);
-                                searchLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+                searchLabel = new JLabel("Search for a Course");
+                searchLabel.setBounds(111, 260, 150, 15);
+                panel.add(searchLabel);
+                searchLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
                                 
-                                        courseLabel = new JLabel("Courses:");
-                                        courseLabel.setBounds(177, 0, 100, 30);
-                                        panel.add(courseLabel);
-                                        courseLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+                courseLabel = new JLabel("Courses:");
+                courseLabel.setBounds(177, 0, 100, 30);
+                panel.add(courseLabel);
+                courseLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
 
     }
 
