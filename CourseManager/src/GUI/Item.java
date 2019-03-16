@@ -14,10 +14,15 @@ public class Item {
 		this.name = name;
 		this.ID = ID;
 		this.description = description;
-		this.children = new int[children.length];
-		for(int i = 0;i<children.length;i++) {
-			this.children[i] = children[i];
-		}
+
+		if (children != null){
+			this.children = new int[children.length];
+			for(int i = 0;i<children.length;i++) {
+				this.children[i] = children[i];
+			}
+		} else
+			this.children = null;
+
 		this.parent = parent;
 		if(type.equals("faculty"))
 			this.parent = 65535;	//faculty's parentID is 65535.
@@ -56,7 +61,13 @@ public class Item {
 
 	public int[] getChildren(){ return children; }
 
-	public void setChildren( int[] children) { this.children = children; }
+	public void addChildren( int child ) {
+		int[] tempChildren = this.children;
+		this.children = new int [this.children.length+1];
+		for (int i=0; i<this.children.length-1; i++)
+			this.children[i] = tempChildren[i];
+		this.children[this.children.length-1] = child;
+	}
 
 	public int getParent() { return parent; }
 
