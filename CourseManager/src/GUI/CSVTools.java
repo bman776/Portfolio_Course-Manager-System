@@ -183,9 +183,11 @@ public class CSVTools {
     			else break;
     		}
     		writer.write(("\""+(newitem.getID())+"\",\""+newitem.getName()+"\",\""+newitem.getDescription()+"\",\""+newitem.getParent()+"\"").getBytes());
-    		for(int i=0;i<newitem.getChildren().length;i++) {
-    			writer.write((",\""+newitem.children[i]+"\"").getBytes());
-    		}
+    		if (newitem.children != null) {
+                for (int i = 0; i < newitem.getChildren().length; i++) {
+                    writer.write((",\"" + newitem.children[i] + "\"").getBytes());
+                }
+            }
     		writer.write(("\r\n").getBytes());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -225,12 +227,16 @@ public class CSVTools {
     			else break;
     		}
     		writer.write(("\""+(newcourse.getID())+"\",\""+newcourse.getName()+"\",\""+newcourse.getDescription()+"\",\""+newcourse.getPrerequisites().length+"\",\""+newcourse.getAntirequisites().length+"\",\""+newcourse.getLabinfo()+"\",\""+newcourse.getHours()+"\",\""+newcourse.getCredits()+"\",\""+newcourse.getParent()+"\"").getBytes());
-    		for(int i=0;i<newcourse.getPrerequisites().length;i++) {
-    			writer.write((",\""+newcourse.getPrerequisites()[i]+"\"").getBytes());
-    		}
-    		for(int i=0;i<newcourse.getAntirequisites().length;i++) {
-    			writer.write((",\""+newcourse.getAntirequisites()[i]+"\"").getBytes());
-    		}
+    		if (newcourse.getPrerequisites() != null){
+                for(int i=0;i<newcourse.getPrerequisites().length;i++) {
+                    writer.write((",\""+newcourse.getPrerequisites()[i]+"\"").getBytes());
+                }
+            }
+    		if (newcourse.getAntirequisites() != null){
+                for(int i=0;i<newcourse.getAntirequisites().length;i++) {
+                    writer.write((",\""+newcourse.getAntirequisites()[i]+"\"").getBytes());
+                }
+            }
     		writer.write(("\r\n").getBytes());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -247,6 +253,26 @@ public class CSVTools {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+    
+    public static void addChildIDtoParent(Item child){
+        Item parentItem = null;
+        if (child.type.equals("course")) {
+            parentItem = findItem("program", child.parent);
+            removeData(parentItem);
+            parentItem.addChildren(child.ID);
+            addItem(parentItem);
+        } else if (child.type.equals("program")){
+            parentItem = findItem("department", child.parent);
+            removeData(parentItem);
+            parentItem.addChildren(child.ID);
+            addItem(parentItem);
+        } else if (child.type.equals("department")){
+            parentItem = findItem("faculty", child.parent);
+            removeData(parentItem);
+            parentItem.addChildren(child.ID);
+            addItem(parentItem);
         }
     }
 
@@ -293,14 +319,14 @@ public class CSVTools {
         }
     }
     
-    public static int[] getList(String type) {
+    public static int[] getIDList(String type) {
     	int[] list = null;
     	String csvFile = "./data/"+type+".csv";
     	Scanner scanner = null;
     	try {
     		scanner = new Scanner(new File(csvFile));
-    		int num = Integer.parseInt(scanner.nextLine());
-    		scanner.nextLine();
+    		int num = Integer.parseInt(scanner.nextLine()); //get Number of items saved in csv file from first line of csv file
+    		scanner.nextLine();                             //Skip the 2nd csv format line
      		list = new int[num];
             for(int count = 0;count < num; count++) {
                 List<String> line = parseLine(scanner.nextLine());
@@ -321,6 +347,62 @@ public class CSVTools {
             }
         }
     	return list;
+    }
+
+    public static String[] getNameList(String type) {
+        String[] list = null;
+        String csvFile = "./data/"+type+".csv";
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(new File(csvFile));
+            int num = Integer.parseInt(scanner.nextLine());
+            scanner.nextLine();
+            list = new String[num];
+            for(int count = 0;count < num; count++) {
+                List<String> line = parseLine(scanner.nextLine());
+                list[count] = (line.get(1));
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(null != scanner) {
+                    scanner.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+
+    public static boolean fileIsEmpty(String type){
+        String csvFile = "./data/"+type+".csv";
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(new File(csvFile));
+            if (Integer.parseInt(scanner.nextLine()) == 0 ){
+                return true;
+            } else {
+                return false;
+            }
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != scanner) {
+                    scanner.close();
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return false; //returns false by default
     }
     
     public static List<String> parseLine(String cvsLine) {
