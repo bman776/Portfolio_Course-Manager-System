@@ -33,8 +33,8 @@ public class BasicLogin {
 		getCredentialsFromFile();
 		
 		// Prints To Help Check What Username and Password is
-		System.out.println(correctUsername);
-		System.out.print(correctPassword);
+		//System.out.println(correctUsername);
+		//System.out.print(correctPassword);
 	}
 	
 	/**
