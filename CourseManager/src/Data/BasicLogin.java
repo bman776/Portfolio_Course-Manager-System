@@ -16,16 +16,6 @@ public class BasicLogin {
 	private PrintWriter outputStream = null;
 	public String filePath = "./data/Login.txt";
 	
-	
-	public static void main(String[] args) {
-		BasicLogin log = new BasicLogin();
-		
-		log.setCorrectUsername("admin");
-		log.setCorrectPassword("Password1");
-		log.updateFile();
-		log.getCredentialsFromFile();
-		}
-	
 	/**
 	 * Default Constructor
 	 */
