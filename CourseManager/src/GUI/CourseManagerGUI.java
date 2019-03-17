@@ -14,7 +14,7 @@ import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-import Data.Login;
+import Data.BasicLogin;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -30,7 +30,7 @@ public class CourseManagerGUI {
 
 	
 	//Create Instance of Login Class
-	Login logins = new Login();
+	BasicLogin logins = new BasicLogin();
 
 	
 	/**
@@ -507,41 +507,38 @@ public class CourseManagerGUI {
 		passwordField.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-			        String usernameInput = usernameField.getText();
-			        String pwInput = "";
-			        
-			        // Get password from password field and make a string
-			        char[] passwordArr = passwordField.getPassword();
-			        int pwLength = passwordArr.length;
-			        for(int i =0; i < pwLength; i++) {
-			        	pwInput += passwordArr[i];
-			        }
-			        
-
-			        
-			        // Prints to help check getting proper input
-			        //System.out.println(usernameInput);
-			        //System.out.println(pwInput);
-
-			        // Check if proper username and password
-			        if(logins.loginCheck(usernameInput, pwInput) == true) {
-			        	
-			        	//Switch to Menu Panel
-			        	loginPanel.setVisible(false);
-			        	menuPanel.setVisible(true);
-			        	
-			        	//Clear username and password inputed so user doesn't have to clear text field after logout
-			        	usernameField.setText(null);
-			        	passwordField.setText(null);
-			        	loginMessage.setVisible(false);
-			        	
-			        }
-			        
-			        else {
-			        	// Incorrect Username and Password Combination, display message and clear password field
-			        	loginMessage.setVisible(true);
-			        	passwordField.setText(null);
-			        }
+					String usernameInput = usernameField.getText();
+					String pwInput = "";
+		        
+					// Get password from password field and gradually create a string
+					char[] passwordArr = passwordField.getPassword();
+					int pwLength = passwordArr.length;
+					for(int i =0; i < pwLength; i++) {
+						pwInput += passwordArr[i];
+		        }
+		        // Prints to help check getting proper input
+		        //System.out.println(usernameInput);
+		        //System.out.println(pwInput);
+					
+					// check if login username and password are correct
+					if(logins.loginCheck(usernameInput, pwInput) == true) {
+		        	
+						//Switch to Menu Panel
+						loginPanel.setVisible(false);
+						menuPanel.setVisible(true);
+		        	
+						//Clear username and password inputed so user doesn't have to clear text field after logout
+						usernameField.setText(null);
+						passwordField.setText(null);
+						loginMessage.setVisible(false);
+		        	
+		        }
+		        
+					else {
+						// Incorrect Username and Password Combination, display message and clear password field
+						loginMessage.setVisible(true);
+						passwordField.setText(null);
+					}
 				}
 			}
 		});
