@@ -331,7 +331,7 @@ public class AddPage extends JFrame {
                     }
                 }
                 for (int i = 0; i<courseIDs.length; i++){
-                    if ( Integer.parseInt(courseIDField.getText()) == courseIDs[i]){
+                    if ( Integer.parseInt(itemIDField.getText()) == courseIDs[i]){
                         errorMessage.setText("<html>Duplicate Course ID found,<br/> enter different ID</html>");
                         errorMessage.setVisible(true);
                         return;
