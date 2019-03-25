@@ -6,18 +6,17 @@ import javax.swing.*;
 
 
 public class FacultySearchPage extends JFrame {
+    private JPanel facultySearchPanel;
+    private JPanel outerPanel;
     private JLabel facultyLabel;
     private JLabel searchLabel;
     private JLabel nameLabel;
     private JLabel numberLabel;
     private JTextField facultyNameField;
     private JTextField facultyNumberField;
-    private JComboBox facultyList;  //becomes scrollable after 8 elements
-    private JPanel facultyPanel;
+    private JComboBox facultyList;
     private String[] savedFaculties;
     private JButton searchButton;
-    private JPanel panel;
-    
 
     //constuctor
     public FacultySearchPage(){
@@ -35,60 +34,61 @@ public class FacultySearchPage extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        facultyPanel = new JPanel();
-        facultyPanel.setBackground(new Color(176, 196, 222));
-        facultyPanel.setBounds(0,0, 494, 471);
-        getContentPane().add(facultyPanel);
-        facultyPanel.setLayout(null);
+        outerPanel = new JPanel();
+        outerPanel.setBackground(new Color(176, 196, 222));
+        outerPanel.setBounds(0, 0, 500, 500);
+        getContentPane().add(outerPanel);
+        outerPanel.setLayout(null);
+
+        facultySearchPanel = new JPanel();
+        facultySearchPanel.setBackground(SystemColor.window);
+        facultySearchPanel.setBounds(10,10, 465, 440);
+        outerPanel.add(facultySearchPanel);
+        facultySearchPanel.setLayout(null);
+
+        facultyLabel = new JLabel("Faculties:");
+        facultyLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        facultyLabel.setBounds(170, 5, 100, 30);
+        facultySearchPanel.add(facultyLabel);
 
         facultyList = new JComboBox(savedFaculties);
         facultyList.setFont(new Font("Tahoma", Font.PLAIN, 13));
         facultyList.setBounds(100,45,300, 30);
-        facultyPanel.add(facultyList);
+        facultySearchPanel.add(facultyList);
 
         searchLabel = new JLabel("Search for a Faculty");
         searchLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        searchLabel.setBounds(110,260,150, 15); //y was 265
-        facultyPanel.add(searchLabel);
+        searchLabel.setBounds(40,250,150, 15);
+        facultySearchPanel.add(searchLabel);
+
+        nameLabel = new JLabel("Faculty Name:");
+        nameLabel.setBounds(40, 288, 120, 15);
+        nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        facultySearchPanel.add(nameLabel);
 
         facultyNameField = new JTextField();
         facultyNameField.setFont(new Font("Tahoma", Font.PLAIN, 12));
         facultyNameField.setBounds(165,285,250, 25);
-        facultyPanel.add(facultyNameField);
+        facultySearchPanel.add(facultyNameField);
+
+        numberLabel = new JLabel("Faculty ID Number:");
+        numberLabel.setBounds(40, 328, 120, 15);
+        numberLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        facultySearchPanel.add(numberLabel);
 
         facultyNumberField = new JTextField();
         facultyNumberField.setFont(new Font("Tahoma", Font.PLAIN, 12));
         facultyNumberField.setBounds( 165,325, 250, 25);
-        facultyPanel.add(facultyNumberField);
+        facultySearchPanel.add(facultyNumberField);
 
         searchButton = new JButton("Search for Faculty");
         searchButton.setBackground(new Color(176, 196, 222));
         searchButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        searchButton.setBounds(165,360, 175, 30);
-        facultyPanel.add(searchButton);
-        
-        panel = new JPanel();
-        panel.setBackground(SystemColor.window);
-        panel.setBounds(10, 11, 474, 449);
-        facultyPanel.add(panel);
-        panel.setLayout(null);
-        
-                facultyLabel = new JLabel("Faculties:");
-                facultyLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-                facultyLabel.setBounds(166, 0, 100, 30);
-                panel.add(facultyLabel);
-                
-                        nameLabel = new JLabel("Faculty Name:");
-                        nameLabel.setBounds(62, 279, 108, 15);
-                        panel.add(nameLabel);
-                        nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-                        
-                                numberLabel = new JLabel("Faculty ID Number:");
-                                numberLabel.setBounds(40, 318, 131, 15);
-                                panel.add(numberLabel);
-                                numberLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        searchButton.setBounds(100,370, 175, 30);
+        facultySearchPanel.add(searchButton);
 
     }
 
 
 }
+
