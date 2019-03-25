@@ -208,14 +208,14 @@ public class CSVTools {
     }
     
     public static void addCourse(Course newcourse) {
-    	String csvFile = "./data/course.csv";
+    	String csvFile = "CourseManager/data/course.csv";
     	Scanner scanner = null;
     	File fileio = null;
     	File filepast = new File(csvFile);
     	FileOutputStream writer = null;
     	try {
     		scanner = new Scanner(filepast);
-    		fileio = new File("./data/course.temp");
+    		fileio = new File("CourseManager/data/course.temp");
     		fileio.createNewFile();
     		writer = new FileOutputStream(fileio);
     		writer.write((Integer.parseInt(scanner.nextLine())+1+"\r\n").getBytes());
@@ -226,13 +226,35 @@ public class CSVTools {
     			}
     			else break;
     		}
-    		writer.write(("\""+(newcourse.getID())+"\",\""+newcourse.getName()+"\",\""+newcourse.getDescription()+"\",\""+newcourse.getPrerequisites().length+"\",\""+newcourse.getAntirequisites().length+"\",\""+newcourse.getLabinfo()+"\",\""+newcourse.getHours()+"\",\""+newcourse.getCredits()+"\",\""+newcourse.getParent()+"\"").getBytes());
-    		if (newcourse.getPrerequisites() != null){
+    		if ( (newcourse.getPrerequisites() == null) && (newcourse.getAntirequisites() == null) ){
+    		    writer.write(("\""+(newcourse.getID())+"\",\""+newcourse.getName()+"\",\""+newcourse.getDescription()
+                        +"\",\""+"0"+"\",\""+"0"+"\",\""
+                        +newcourse.getLabinfo()+"\",\""+newcourse.getHours()+"\",\""+newcourse.getCredits()+"\",\""
+                        +newcourse.getParent()+"\"").getBytes());
+            } else if ( (newcourse.getPrerequisites() != null) && (newcourse.getAntirequisites() == null) ) {
+                writer.write(("\""+(newcourse.getID())+"\",\""+newcourse.getName()+"\",\""+newcourse.getDescription()+"\",\""
+                        +newcourse.getPrerequisites().length+"\",\""+"0"+"\",\""
+                        +newcourse.getLabinfo()+"\",\""+newcourse.getHours()+"\",\""+newcourse.getCredits()+"\",\""
+                        +newcourse.getParent()+"\"").getBytes());
                 for(int i=0;i<newcourse.getPrerequisites().length;i++) {
                     writer.write((",\""+newcourse.getPrerequisites()[i]+"\"").getBytes());
                 }
-            }
-    		if (newcourse.getAntirequisites() != null){
+            } else if ( (newcourse.getPrerequisites() == null) && (newcourse.getAntirequisites() != null) ) {
+                writer.write(("\""+(newcourse.getID())+"\",\""+newcourse.getName()+"\",\""+newcourse.getDescription()+"\",\""
+                        +"0"+"\",\""+newcourse.getAntirequisites().length+"\",\""
+                        +newcourse.getLabinfo()+"\",\""+newcourse.getHours()+"\",\""+newcourse.getCredits()+"\",\""
+                        +newcourse.getParent()+"\"").getBytes());
+                for(int i=0;i<newcourse.getAntirequisites().length;i++) {
+                    writer.write((",\""+newcourse.getAntirequisites()[i]+"\"").getBytes());
+                }
+            } else {
+                writer.write(("\""+(newcourse.getID())+"\",\""+newcourse.getName()+"\",\""+newcourse.getDescription()+"\",\""
+                        +newcourse.getPrerequisites().length+"\",\""+newcourse.getAntirequisites().length+"\",\""
+                        +newcourse.getLabinfo()+"\",\""+newcourse.getHours()+"\",\""+newcourse.getCredits()+"\",\""
+                        +newcourse.getParent()+"\"").getBytes());
+                for(int i=0;i<newcourse.getPrerequisites().length;i++) {
+                    writer.write((",\""+newcourse.getPrerequisites()[i]+"\"").getBytes());
+                }
                 for(int i=0;i<newcourse.getAntirequisites().length;i++) {
                     writer.write((",\""+newcourse.getAntirequisites()[i]+"\"").getBytes());
                 }
