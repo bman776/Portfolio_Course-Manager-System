@@ -32,8 +32,8 @@ public class DepartmentSearchPage extends JFrame {
         }
 
         setResizable(false);
-        setTitle("Course Search Page");
-        setBounds(100,100, 500, 500);
+        setTitle("Department Search Page");
+        setBounds(800,200, 500, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
