@@ -1,9 +1,15 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.SystemColor;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ProgramSearchPage extends JFrame {
@@ -13,7 +19,8 @@ public class ProgramSearchPage extends JFrame {
     private JLabel numberLabel;
     private JTextField programNameField;
     private JTextField programNumberField;
-    private JComboBox programList;  //becomes scrollable after 8 elements
+    private JList<String> programList;
+    private JScrollPane programPane;
     private JPanel programSearchPanel;
     private String[] savedPrograms;
     private JButton searchButton;
@@ -26,7 +33,7 @@ public class ProgramSearchPage extends JFrame {
         int[] savedPrgmIDs = CSVTools.getIDList("program");
         savedPrograms = new String[savedPrgmNames.length];
         for (int i = 0; i<savedPrgmNames.length; i++){
-            savedPrograms[i] = "ID:"+savedPrgmIDs[i]+" Name: "+savedPrgmNames[i];
+            savedPrograms[i] = savedPrgmNames[i]+"   "+savedPrgmIDs[i];
         }
 
         setResizable(false);
@@ -52,10 +59,30 @@ public class ProgramSearchPage extends JFrame {
         programLabel.setBounds(170, 5, 100, 30);
         programSearchPanel.add(programLabel);
 
-        programList = new JComboBox(savedPrograms);
+        programList = new JList(savedPrograms);
         programList.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        programList.setBounds(100,45,300, 30);
-        programSearchPanel.add(programList);
+        programList.setBounds(100,45,300, 185);
+        programPane = new JScrollPane(programList);
+        programPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        programPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        programPane.setBounds(programList.getBounds());
+        programSearchPanel.add(programPane);
+        programList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                /**
+                 * IF statement prevents the infamous double fire event associated with JLists selections
+                 * (when made with mouse) and makes the selection in the JList re-selectable to the user
+                 */
+                if (programList.getSelectedValue() != null){
+                    int prgmID = Integer.parseInt(programList.getSelectedValue().split("   ")[1]);
+                    ProgramInfoPage selectedPrgm = new ProgramInfoPage(CSVTools.findItem("program",prgmID));
+                    programList.clearSelection();
+                    selectedPrgm.setVisible(true);
+                }
+                return;
+            }
+        });
 
         searchLabel = new JLabel("Search for a Faculty");
         searchLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -87,7 +114,102 @@ public class ProgramSearchPage extends JFrame {
         searchButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
         searchButton.setBounds(100,370, 175, 30);
         programSearchPanel.add(searchButton);
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nameInput;
+                int IDInput;
+                List<String> searchResults = new ArrayList<>();
+
+                if (!programNameField.getText().equals("") && programNumberField.getText().equals("")){
+
+                    /**
+                     * Only name given for search
+                     */
+
+                    // Retrieve name
+                    nameInput = programNameField.getText();
+
+                    //Search based on name
+                    for (int i=0; i<savedPrgmNames.length; i++){
+                        if (savedPrgmNames[i].equals(nameInput)){
+                            searchResults.add(nameInput+"   "+CSVTools.findItem("program",nameInput).getID() );
+                        }
+                    }
+
+                    //display results of the search
+                    if (searchResults.size() != 0)
+                        programList.setListData(searchResults.stream().toArray(String[]::new));
+                    else {
+                        programNameField.setText("No such Program with that name");
+                    }
+
+                } else if (programNameField.getText().equals("") && !programNumberField.getText().equals("")){
+
+                    /**
+                     * only id given for search
+                     */
+
+                    // Validate ID input
+                    try {
+                        IDInput = Integer.parseInt(programNumberField.getText());
+                    } catch (NumberFormatException e1){
+                        programNumberField.setText("*Invalid ID Input*");
+                        return;
+                    }
+
+                    // Search based on ID
+                    for (int i=0; i<savedPrgmIDs.length; i++){
+                        if (savedPrgmIDs[i] == IDInput){
+                            searchResults.add(CSVTools.findItem("program", IDInput).getName()+ "   "+IDInput);
+                        }
+                    }
+
+                    //display results of the search
+                    if (searchResults.size() != 0)
+                        programList.setListData(searchResults.stream().toArray(String[]::new));
+                    else {
+                        programNumberField.setText("No such Program with that ID");
+                    }
+
+                } else if (  !programNameField.getText().equals("") && !programNumberField.getText().equals("") ){
+
+                    /**
+                     * Name and ID given for search
+                     */
+
+                    // Retrieve name
+                    nameInput = programNameField.getText();
+
+                    // Validate ID input
+                    try {
+                        IDInput = Integer.parseInt(programNumberField.getText());
+                    } catch (NumberFormatException e1){
+                        programNumberField.setText("*Invalid ID Input*");
+                        return;
+                    }
+
+                    //Search Based on ID and Name
+                    for (int i=0; i<savedPrgmIDs.length; i++){
+                        if ( (savedPrgmIDs[i] == IDInput) && (savedPrgmNames[i] == nameInput) ){
+                            searchResults.add(nameInput+"   "+IDInput);
+                        }
+                    }
+
+                    //display results of the search
+                    if (searchResults.size() != 0)
+                        programList.setListData(searchResults.stream().toArray(String[]::new));
+                    else {
+                        programNameField.setText("No such Program with that name");
+                        programNumberField.setText("No such Program with that ID");
+                    }
+
+                } else {
+                    // Neither Name or ID given for Search
+                    programNameField.setText("Provide Program name");
+                    programNumberField.setText("Provide Program number");
+                }
+            }
+        });
     }
-
-
 }
