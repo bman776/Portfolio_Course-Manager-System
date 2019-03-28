@@ -30,8 +30,8 @@ public class ProgramSearchPage extends JFrame {
         }
 
         setResizable(false);
-        setTitle("Faculty Page");
-        setBounds(100,100, 500, 500);
+        setTitle("Program Search Page");
+        setBounds(800,300, 500, 500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
