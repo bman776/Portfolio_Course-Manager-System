@@ -4,10 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-
-
 
 public class CSVTools {
 
@@ -15,7 +14,7 @@ public class CSVTools {
     private static final char DEFAULT_QUOTE = '"';
 
     public static Item findItem(String type, String name) {
-    	String csvFile = "./data/"+type+".csv";
+    	String csvFile = "CourseManager/data/"+type+".csv";
     	Item result = null;
     	Scanner scanner = null;
     	try {
@@ -28,8 +27,8 @@ public class CSVTools {
                     for(int i=4, j=0;i < line.size();i++, j++) {
                     	tempChildren[j] = Integer.parseInt(line.get(i));
                     }
-                    System.out.println(line.get(2));
-                    result = new Item(type, line.get(1), Integer.parseInt(line.get(0)), line.get(2), tempChildren, Integer.parseInt(line.get(3)));
+                    String restoredDescription = line.get(2).replaceAll("@@@", System.lineSeparator());
+                    result = new Item(type, line.get(1), Integer.parseInt(line.get(0)), restoredDescription, tempChildren, Integer.parseInt(line.get(3)));
                     break;
                 }
             }
@@ -51,7 +50,7 @@ public class CSVTools {
     }
     
     public static Item findItem(String type, int ID) {
-    	String csvFile = "./data/"+type+".csv";
+    	String csvFile = "CourseManager/data/"+type+".csv";
     	Item result = null;
     	Scanner scanner = null;
     	try {
@@ -64,7 +63,8 @@ public class CSVTools {
                     for(int i=4, j=0;i < line.size();i++, j++) {
                     	tempChildren[j] = Integer.parseInt(line.get(i));
                     }
-                    result = new Item(type, line.get(1), Integer.parseInt(line.get(0)), line.get(2), tempChildren, Integer.parseInt(line.get(3)));
+                    String restoredDescription = line.get(2).replaceAll("@@@", System.lineSeparator());
+                    result = new Item(type, line.get(1), Integer.parseInt(line.get(0)), restoredDescription, tempChildren, Integer.parseInt(line.get(3)));
                     break;
                 }
             }
@@ -86,7 +86,7 @@ public class CSVTools {
     }
 
     public static Course findCourse(String name) {
-    	String csvFile = "./data/course.csv";
+    	String csvFile = "CourseManager/data/course.csv";
     	Course result = null;
     	Scanner scanner = null;
     	try {
@@ -103,7 +103,10 @@ public class CSVTools {
                     for(int i=9+prerequisite.length, j=0;i < line.size();i++, j++) {
                     	antirequisite[j] = Integer.parseInt(line.get(i));
                     }
-                    result = new Course(line.get(1), Integer.parseInt(line.get(0)), line.get(2), Integer.parseInt(line.get(8)), Double.parseDouble(line.get(6)), Double.parseDouble(line.get(7)), line.get(5), prerequisite, antirequisite);
+                    String restoredDescription = line.get(2).replaceAll("@@@", System.lineSeparator());
+                    String restoredLabInfo = line.get(2).replaceAll("@@@", System.lineSeparator());
+                    result = new Course(line.get(1), Integer.parseInt(line.get(0)), restoredDescription, Integer.parseInt(line.get(8)),
+                            Double.parseDouble(line.get(6)), Double.parseDouble(line.get(7)), restoredLabInfo, prerequisite, antirequisite);
                     break;
                 }
             }
@@ -125,7 +128,7 @@ public class CSVTools {
     }
     
     public static Course findCourse(int ID) {
-    	String csvFile = "./data/course.csv";
+    	String csvFile = "CourseManager/data/course.csv";
     	Course result = null;
     	Scanner scanner = null;
     	try {
@@ -142,7 +145,10 @@ public class CSVTools {
                     for(int i=9+prerequisite.length,j=0;i<line.size();i++, j++) {
                     	antirequisite[j] = Integer.parseInt(line.get(i));
                     }
-                    result = new Course(line.get(1), Integer.parseInt(line.get(0)), line.get(2), Integer.parseInt(line.get(8)), Double.parseDouble(line.get(6)), Double.parseDouble(line.get(7)), line.get(5), prerequisite, antirequisite);
+                    String restoredDescription = line.get(2).replaceAll("@@@", System.lineSeparator());
+                    String restoredLabInfo = line.get(2).replaceAll("@@@", System.lineSeparator());
+                    result = new Course(line.get(1), Integer.parseInt(line.get(0)), restoredDescription, Integer.parseInt(line.get(8)),
+                            Double.parseDouble(line.get(6)), Double.parseDouble(line.get(7)), restoredLabInfo, prerequisite, antirequisite);
                     break;
                 }
             }
@@ -164,14 +170,14 @@ public class CSVTools {
     }
     
     public static void addItem(Item newitem) {
-    	String csvFile = "./data/"+newitem.type+".csv";
+    	String csvFile = "CourseManager/data/"+newitem.type+".csv";
     	Scanner scanner = null;
     	File fileio = null;
     	File filepast = new File(csvFile);
     	FileOutputStream writer = null;
     	try {
     		scanner = new Scanner(filepast);
-    		fileio = new File("./data/"+newitem.type+".temp");
+    		fileio = new File("CourseManager/data/"+newitem.type+".temp");
     		fileio.createNewFile();
     		writer = new FileOutputStream(fileio);
     		writer.write((Integer.parseInt(scanner.nextLine())+1+"\r\n").getBytes());
@@ -182,7 +188,10 @@ public class CSVTools {
     			}
     			else break;
     		}
-    		writer.write(("\""+(newitem.getID())+"\",\""+newitem.getName()+"\",\""+newitem.getDescription()+"\",\""+newitem.getParent()+"\"").getBytes());
+
+    		String csvConvertedDescription = newitem.getDescription().replaceAll("(\\r|\\n|\\r\n)", "@@@");
+
+    		writer.write(("\""+(newitem.getID())+"\",\""+newitem.getName()+"\",\""+csvConvertedDescription+"\",\""+newitem.getParent()+"\"").getBytes());
     		if (newitem.children != null) {
                 for (int i = 0; i < newitem.getChildren().length; i++) {
                     writer.write((",\"" + newitem.children[i] + "\"").getBytes());
@@ -226,31 +235,36 @@ public class CSVTools {
     			}
     			else break;
     		}
+
+    		String csvConvertedDescription = newcourse.getDescription().replaceAll("(\\r|\\n|\\r\n)", "@@@");
+    		String csvConvertedLabInfo = newcourse.getLabinfo().replaceAll("(\\r|\\n|\\r\n)", "@@@");
+
+
     		if ( (newcourse.getPrerequisites() == null) && (newcourse.getAntirequisites() == null) ){
-    		    writer.write(("\""+(newcourse.getID())+"\",\""+newcourse.getName()+"\",\""+newcourse.getDescription()
+    		    writer.write(("\""+(newcourse.getID())+"\",\""+newcourse.getName()+"\",\""+csvConvertedDescription
                         +"\",\""+"0"+"\",\""+"0"+"\",\""
-                        +newcourse.getLabinfo()+"\",\""+newcourse.getHours()+"\",\""+newcourse.getCredits()+"\",\""
+                        +csvConvertedLabInfo+"\",\""+newcourse.getHours()+"\",\""+newcourse.getCredits()+"\",\""
                         +newcourse.getParent()+"\"").getBytes());
             } else if ( (newcourse.getPrerequisites() != null) && (newcourse.getAntirequisites() == null) ) {
-                writer.write(("\""+(newcourse.getID())+"\",\""+newcourse.getName()+"\",\""+newcourse.getDescription()+"\",\""
+                writer.write(("\""+(newcourse.getID())+"\",\""+newcourse.getName()+"\",\""+csvConvertedDescription+"\",\""
                         +newcourse.getPrerequisites().length+"\",\""+"0"+"\",\""
-                        +newcourse.getLabinfo()+"\",\""+newcourse.getHours()+"\",\""+newcourse.getCredits()+"\",\""
+                        +csvConvertedLabInfo+"\",\""+newcourse.getHours()+"\",\""+newcourse.getCredits()+"\",\""
                         +newcourse.getParent()+"\"").getBytes());
                 for(int i=0;i<newcourse.getPrerequisites().length;i++) {
                     writer.write((",\""+newcourse.getPrerequisites()[i]+"\"").getBytes());
                 }
             } else if ( (newcourse.getPrerequisites() == null) && (newcourse.getAntirequisites() != null) ) {
-                writer.write(("\""+(newcourse.getID())+"\",\""+newcourse.getName()+"\",\""+newcourse.getDescription()+"\",\""
+                writer.write(("\""+(newcourse.getID())+"\",\""+newcourse.getName()+"\",\""+csvConvertedDescription+"\",\""
                         +"0"+"\",\""+newcourse.getAntirequisites().length+"\",\""
-                        +newcourse.getLabinfo()+"\",\""+newcourse.getHours()+"\",\""+newcourse.getCredits()+"\",\""
+                        +csvConvertedLabInfo+"\",\""+newcourse.getHours()+"\",\""+newcourse.getCredits()+"\",\""
                         +newcourse.getParent()+"\"").getBytes());
                 for(int i=0;i<newcourse.getAntirequisites().length;i++) {
                     writer.write((",\""+newcourse.getAntirequisites()[i]+"\"").getBytes());
                 }
             } else {
-                writer.write(("\""+(newcourse.getID())+"\",\""+newcourse.getName()+"\",\""+newcourse.getDescription()+"\",\""
+                writer.write(("\""+(newcourse.getID())+"\",\""+newcourse.getName()+"\",\""+csvConvertedDescription+"\",\""
                         +newcourse.getPrerequisites().length+"\",\""+newcourse.getAntirequisites().length+"\",\""
-                        +newcourse.getLabinfo()+"\",\""+newcourse.getHours()+"\",\""+newcourse.getCredits()+"\",\""
+                        +csvConvertedLabInfo+"\",\""+newcourse.getHours()+"\",\""+newcourse.getCredits()+"\",\""
                         +newcourse.getParent()+"\"").getBytes());
                 for(int i=0;i<newcourse.getPrerequisites().length;i++) {
                     writer.write((",\""+newcourse.getPrerequisites()[i]+"\"").getBytes());
@@ -299,14 +313,14 @@ public class CSVTools {
     }
 
     public static void removeData(Item deleteditem) {
-    	String csvFile = "./data/"+deleteditem.type+".csv";
+    	String csvFile = "CourseManager/data/"+deleteditem.type+".csv";
     	Scanner scanner = null;
     	File fileio = null;
     	File filepast = new File(csvFile);
     	FileOutputStream writer = null;
     	try {
     		scanner = new Scanner(filepast);
-    		fileio = new File("./data/"+deleteditem.type+".temp");
+    		fileio = new File("CourseManager/data/"+deleteditem.type+".temp");
     		fileio.createNewFile();
     		String tempstr = null;
     		writer = new FileOutputStream(fileio);
@@ -343,7 +357,7 @@ public class CSVTools {
     
     public static int[] getIDList(String type) {
     	int[] list = null;
-    	String csvFile = "./data/"+type+".csv";
+    	String csvFile = "CourseManager/data/"+type+".csv";
     	Scanner scanner = null;
     	try {
     		scanner = new Scanner(new File(csvFile));
@@ -373,7 +387,7 @@ public class CSVTools {
 
     public static String[] getNameList(String type) {
         String[] list = null;
-        String csvFile = "./data/"+type+".csv";
+        String csvFile = "CourseManager/data/"+type+".csv";
         Scanner scanner = null;
         try {
             scanner = new Scanner(new File(csvFile));
@@ -402,7 +416,7 @@ public class CSVTools {
     }
 
     public static boolean fileIsEmpty(String type){
-        String csvFile = "./data/"+type+".csv";
+        String csvFile = "CourseManager/data/"+type+".csv";
         Scanner scanner = null;
         try {
             scanner = new Scanner(new File(csvFile));
