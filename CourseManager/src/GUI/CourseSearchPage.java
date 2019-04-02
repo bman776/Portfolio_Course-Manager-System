@@ -195,7 +195,7 @@ public class CourseSearchPage extends JFrame {
 
                     //Search Based on ID and Name
                     for (int i=0; i<savedCourseIDs.length; i++){
-                        if ( (savedCourseIDs[i] == IDInput) && (savedCourseNames[i] == nameInput) ){
+                        if ( (savedCourseIDs[i] == IDInput) && (savedCourseNames[i].equals(nameInput)) ){
                             searchResults.add(nameInput+"   "+IDInput);
                         }
                     }
