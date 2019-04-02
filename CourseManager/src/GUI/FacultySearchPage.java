@@ -192,7 +192,7 @@ public class FacultySearchPage extends JFrame {
 
                     //Search Based on ID and Name
                     for (int i=0; i<savedFacIDs.length; i++){
-                        if ( (savedFacIDs[i] == IDInput) && (savedFacNames[i] == nameInput) ){
+                        if ( (savedFacIDs[i] == IDInput) && (savedFacNames[i].equals(nameInput)) ){
                             searchResults.add(nameInput+"   "+IDInput);
                         }
                     }
