@@ -87,12 +87,12 @@ public class DepartmentSearchPage extends JFrame {
         });
 
 
-        searchLabel = new JLabel("Search for a Course:");
+        searchLabel = new JLabel("Search for a Dept.:");
         searchLabel.setBounds(40, 250, 150, 15);
         searchLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
         departmentSearchPanel.add(searchLabel);
 
-        nameLabel = new JLabel("Course Name:");
+        nameLabel = new JLabel("Dept. Name:");
         nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
         nameLabel.setBounds(40,288,120,15 );
         departmentSearchPanel.add(nameLabel);
@@ -102,7 +102,7 @@ public class DepartmentSearchPage extends JFrame {
         departmentNameField.setBounds(165, 285, 250, 25);
         departmentSearchPanel.add(departmentNameField);
 
-        numberLabel = new JLabel("Course ID Number:");
+        numberLabel = new JLabel("Dept. ID Number:");
         numberLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
         numberLabel.setBounds( 40,328,120, 15);
         departmentSearchPanel.add(numberLabel);
@@ -112,7 +112,7 @@ public class DepartmentSearchPage extends JFrame {
         departmentNumberField.setBounds( 165,325, 250, 25);
         departmentSearchPanel.add(departmentNumberField);
 
-        searchButton = new JButton("Search for Course");
+        searchButton = new JButton("Search for Dept.");
         searchButton.setBackground(new Color(176, 196, 222));
         searchButton.setBounds(100, 370, 175, 30);
         searchButton.setFont(new Font("Sitka Small", Font.PLAIN, 14));
@@ -194,7 +194,7 @@ public class DepartmentSearchPage extends JFrame {
 
                     //Search Based on ID and Name
                     for (int i=0; i<savedDeptIDs.length; i++){
-                        if ( (savedDeptIDs[i] == IDInput) && (savedDeptNames[i] == nameInput) ){
+                        if ( (savedDeptIDs[i] == IDInput) && (savedDeptNames[i].equals(nameInput)) ){
                             searchResults.add(nameInput+"   "+IDInput);
                         }
                     }
