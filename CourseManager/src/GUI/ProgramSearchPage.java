@@ -84,12 +84,12 @@ public class ProgramSearchPage extends JFrame {
             }
         });
 
-        searchLabel = new JLabel("Search for a Faculty");
+        searchLabel = new JLabel("Search for a Program");
         searchLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
         searchLabel.setBounds(40,250,150, 15);
         programSearchPanel.add(searchLabel);
 
-        nameLabel = new JLabel("Faculty Name:");
+        nameLabel = new JLabel("Program Name:");
         nameLabel.setBounds(40, 288, 120, 15);
         nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
         programSearchPanel.add(nameLabel);
@@ -99,7 +99,7 @@ public class ProgramSearchPage extends JFrame {
         programNameField.setBounds(165,285,250, 25);
         programSearchPanel.add(programNameField);
 
-        numberLabel = new JLabel("Faculty ID Number:");
+        numberLabel = new JLabel("Program ID Number:");
         numberLabel.setBounds(40, 328, 120, 15);
         numberLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
         programSearchPanel.add(numberLabel);
@@ -109,7 +109,7 @@ public class ProgramSearchPage extends JFrame {
         programNumberField.setBounds( 165,325, 250, 25);
         programSearchPanel.add(programNumberField);
 
-        searchButton = new JButton("Search for Faculty");
+        searchButton = new JButton("Search for Program");
         searchButton.setBackground(new Color(176, 196, 222));
         searchButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
         searchButton.setBounds(100,370, 175, 30);
@@ -191,7 +191,7 @@ public class ProgramSearchPage extends JFrame {
 
                     //Search Based on ID and Name
                     for (int i=0; i<savedPrgmIDs.length; i++){
-                        if ( (savedPrgmIDs[i] == IDInput) && (savedPrgmNames[i] == nameInput) ){
+                        if ( (savedPrgmIDs[i] == IDInput) && (savedPrgmNames[i].equals(nameInput)) ){
                             searchResults.add(nameInput+"   "+IDInput);
                         }
                     }
