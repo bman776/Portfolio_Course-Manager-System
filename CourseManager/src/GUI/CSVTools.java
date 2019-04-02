@@ -104,7 +104,7 @@ public class CSVTools {
                     	antirequisite[j] = Integer.parseInt(line.get(i));
                     }
                     String restoredDescription = line.get(2).replaceAll("@@@", System.lineSeparator());
-                    String restoredLabInfo = line.get(2).replaceAll("@@@", System.lineSeparator());
+                    String restoredLabInfo = line.get(5).replaceAll("@@@", System.lineSeparator());
                     result = new Course(line.get(1), Integer.parseInt(line.get(0)), restoredDescription, Integer.parseInt(line.get(8)),
                             Double.parseDouble(line.get(6)), Double.parseDouble(line.get(7)), restoredLabInfo, prerequisite, antirequisite);
                     break;
@@ -146,7 +146,7 @@ public class CSVTools {
                     	antirequisite[j] = Integer.parseInt(line.get(i));
                     }
                     String restoredDescription = line.get(2).replaceAll("@@@", System.lineSeparator());
-                    String restoredLabInfo = line.get(2).replaceAll("@@@", System.lineSeparator());
+                    String restoredLabInfo = line.get(5).replaceAll("@@@", System.lineSeparator());
                     result = new Course(line.get(1), Integer.parseInt(line.get(0)), restoredDescription, Integer.parseInt(line.get(8)),
                             Double.parseDouble(line.get(6)), Double.parseDouble(line.get(7)), restoredLabInfo, prerequisite, antirequisite);
                     break;
