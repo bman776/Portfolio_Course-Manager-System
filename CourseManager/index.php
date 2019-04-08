@@ -63,7 +63,10 @@ body {
 <body>
 <?php
 echo '<div class="sidenav">';
-echo '<c href="#">Department</c>';
+// Adding links to the side navigation bar
+echo '<c href >Sort Courses By Department</c>';
+echo '<a href = index.php > All Departments</a>';
+
 $depFile = file('data/department.csv');
 $depData = [];
 // Use for loop to print each line of csv file 
@@ -71,7 +74,6 @@ foreach ($depFile as $line){
     // This an multi-dimension array, [x][y] where x is line # and y is value in comma separated line
     // course table headers are [id, name, description, # prereq, # antireq, lab info, hours, credits, parent id, prereq, antireq]
     $depData[] = str_getcsv($line);
-   // echo $line;
 }
 
 for ($k = 2; $k < count($depData); $k++){
@@ -99,95 +101,75 @@ echo ('
   echo('<tr>');
   echo '<div>'; 
 
-  $courseFile = file('data/course.csv');
+  $courseFile = file('data/course.csv'); // Get the csv file
   $classData = [];
-  // Use for loop to print each line of csv file 
+  // Use for loop to iterate through each line of the csv file 
   foreach ($courseFile as $line){
-      // This an multi-dimension array, [x][y] where x is line # and y is value in comma separated line
-      // course table headers are [id, name, description, # prereq, # antireq, lab info, hours, credits, parent id, prereq, antireq]
-      $classData[] = str_getcsv($line);
+      $classData[] = str_getcsv($line); // convert csv field data in each line to an array then push this array to array $progData
      // echo $line;
   }
 
 //echo '<div class="content">';
-if(isset($_GET["depInput"])){
+if(isset($_GET["depInput"])){ 
+    // Ensure that department # is not empty - since # is used to sort courses 
     $depInput = $_GET["depInput"];
 
-    $progFile = file('data/program.csv');
+
+    $progFile = file('data/program.csv'); // Get csv file
     $progData = [];
-    // Use for loop to print each line of csv file 
+    // Use for loop to iterate through each line of the csv file 
     foreach ($progFile as $line){
     // This an multi-dimension array, [x][y] where x is line # and y is value in comma separated line
     // course table headers are [id, name, description, # prereq, # antireq, lab info, hours, credits, parent id, prereq, antireq]
-    $progData[] = str_getcsv($line);
-   // echo $line;
+    $progData[] = str_getcsv($line); // convert csv field data in each line to an array then push this array to array $progData
 }
-
-// echo ('
-// <div class="content">
-// <br>
-// <table style="width:100%">
-//   <tr>
-//     <th align="left" >Course Name</th>
-//     <th align="left">Description</th> 
-//     <th align="left">Lab Info </th>
-//     <th align="left">Hours </th>
-//     <th align="left">Credits </th>
-//   </tr>');
-//   echo('<tr><div>');
-
-
-
+    // Start at $j = 2 since there is metadata and empty line in csv files (so skip 2 lines)
     for ($j = 2; $j <= count($progData); $j++){
         if($progData[$j][3] == $depInput){
-            $progID = $progData[$j][0];
-            // $courseFile = file('data/course.csv');
-            // $classData = [];
-            // // Use for loop to print each line of csv file 
-            // foreach ($courseFile as $line){
-            //     // This an multi-dimension array, [x][y] where x is line # and y is value in comma separated line
-            //     // course table headers are [id, name, description, # prereq, # antireq, lab info, hours, credits, parent id, prereq, antireq]
-            //     $classData[] = str_getcsv($line);
-            //    // echo $line;
-            // }
-            //echo '<div>'; 
+            // 4th item in array = parent of program, which is its department # 
+            $progID = $progData[$j][0]; // get the program ID associated with department #
 
-            
+              // Use for loops to get all courses associated with the program ID 
               for ($y = 2; $y <= count($classData); $y++){
                 for ($x = 1; $x <= count($classData[$y]); $x ++){
-                    //echo "I Like ". $classData[$x][2]. "\n" .'<br>';
                     if($classData[$y][8] == $progID){
                     if (($x != 3) && $x != 4 && $x <= 7){
+                        // skip # prereq (x = 3), # antireq (x = 4), skip prereq and antireq (x = 8, 9)
                     echo("<td>". $classData[$y][$x]. "</td>");
                     }
+                    $prereqNum = $classData[$y][3];
 
                     if( $x == 9){
-                        $prereq = $classData[$y][9];
-                        $antireq = $classData[$y][10];
+                        $prereq = $classData[$y][9]; // get the prereq (Course ID)
                         if($prereq != null){
+                        // Ensure prereq is not null
                         for ($n = 2; $n <= count($classData); $n++){
+                        // skip the first 2 lines again, find course id of prereq
                             if($prereq == $classData[$n][0]){
+                                // Print the course name of prereq
                                 echo("<td>". $classData[$n][1]. "</td>");
                             }
                         }
-                    }else{
+                    }else{ // if null - print None
                         echo("<td>". None. "</td>");}
         
-                    // }
+                    
         
                     }
                     if($x == 10){
-                        $prereq = $classData[$y][9];
-                        $antireq = $classData[$y][10]; // check if null firset 
+                        $antireq = $classData[$y][10]; // get antireq (Course ID)
                         if($antireq != null){
+                        // Ensure antireq is not null
                             for ($n = 2; $n <= count($classData); $n++){
+                            // skip the first 2 lines again, find course id of antireq
                                 if($antireq == $classData[$n][0]){
+                                    // Print the course name of antireq
                                     echo("<td>". $classData[$n][1]. "</td>");
                                 }
                             }
                         }
                         
-                        else{
+                        else{ // if null - print None 
                                 echo("<td>". None. "</td>");
         
                         }
@@ -198,93 +180,55 @@ if(isset($_GET["depInput"])){
                     echo ('</tr></div>'); // close the div for the row
             }
             
-            //   echo ('</tr>
-            // </table></div>'); // close the div for the table
             
         }
     }
 
-    // $depInput is the ID of the DEPARTMENT 
-    // find the program where department ID is parent
 
-
-    // Use department to search the inputs
-    // each course only belongs to one department
-    // child of department is program
-
-
-    //echo $depInput;
 }else{ // default view to show all courses
+    // Use for loops to get all courses associated with the program ID 
     for ($f = 2; $f <= count($classData); $f++){
         for ($s = 1; $s <= count($classData[$f]); $s ++){
-            //echo "I Like ". $classData[$x][2]. "\n" .'<br>';
             if (($s != 3) && $s != 4 && $s <= 7){
+            // skip # prereq (x = 3), # antireq (x = 4), skip prereq and antireq (x = 8, 9)
             echo("<td>". $classData[$f][$s]. "</td>");
             }
             if( $s == 9){
                 $prereq = $classData[$f][9];
-                $antireq = $classData[$f][10];
-                if($prereq != null){
+                if($prereq != null){ // ensure prereq is not null 
                 for ($n = 2; $n <= count($classData); $n++){
+                    // skip first 2 lines, retrieve the courses
                     if($prereq == $classData[$n][0]){
                         echo("<td>". $classData[$n][1]. "</td>");
                     }
-
-
-
-
                 }
             }else{
                 echo("<td>". None. "</td>");}
 
             // }
-
             }
             if($s == 10){
-                $prereq = $classData[$f][9];
-                $antireq = $classData[$f][10]; // check if null firset 
-                if($antireq != null){
+                $antireq = $classData[$f][10]; // get course id of antireq
+                if($antireq != null){ // ensure antireq is not null
                     for ($n = 2; $n <= count($classData); $n++){
+                        // skip first 2 lines, retrieve the courses 
                         if($antireq == $classData[$n][0]){
                             echo("<td>". $classData[$n][1]. "</td>");
                         }
                     }
                 }
-                
-                else{
+                else{ // if null print None
                         echo("<td>". None. "</td>");
 
                 }
-             
-
-
-            }
-            
-
-
-
-
-            
+            }      
             }
             echo ('</tr></div>');
     }
-    
-    //   echo ('</tr>
-    // </table></div>');
-   // echo '</div';
 }
 
-echo ('</tr>
-</table></div>');
-
-
-
-// echo '</div>;';
-
+echo ('</tr>    
+</table></div>'); // close table row, table, div
 ?>
-
-
-
-
 </body>
 </html>
