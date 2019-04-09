@@ -311,7 +311,7 @@ public class ItemEditPage extends JFrame {
             itemIDField.setText("*Invalid Course ID entered*");
             return false;
         }
-        if (savedCourseIDs.contains(courseIDinput)){
+        if ((savedCourseIDs.contains(courseIDinput)) && (courseIDinput != oldCourse.getID())){
             itemIDField.setText("*Duplicate ID found, Use another ID*");
             return false;
         }
@@ -426,7 +426,7 @@ public class ItemEditPage extends JFrame {
         for (int i : CSVTools.getIDList(oldItem.getType(), CSVTools.fromCreated)){
             savedItemIDs.add(i);
         }
-        if (savedItemIDs.contains(itemIDinput)){
+        if ( (savedItemIDs.contains(itemIDinput)) && (itemIDinput != oldItem.getID()) ){
             itemIDField.setText("*Duplicate ID found, Use another ID*");
             return false;
         }
