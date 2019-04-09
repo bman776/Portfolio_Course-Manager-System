@@ -1,0 +1,6 @@
+4
+<0-id>,<1-name>,<2-description>,<3-num of prerequisite>,<4-num of antirequisite>,<5-labinfo>,<6-hours>,<7-credits>,<8-parentID>,<prerequisite.....>,<antirequisite....>
+"4567","Course1","KKKKKKKKKkkk@@@KKKKKKKKKKKkkk@@@KKKKKKKKKKKKKK","0","0","mmmmmmmmmmmmmmmmmmm@@@mmmmmmmmmmmmmmmm","9.0","8.0","3456"
+"4568","Course2","kkkkkkkkkk@@@nnnnnnnnnnnnn@@@ppppppppppppp","0","0","lllllllllllllllllll@@@nnnnnnnnnnnnnn@@@rrrrrrrrrrrrrrrrrr","32.0","6.0","3456"
+"8888","Course3","Enter Course Description","1","1","Enter Lab Info for course","89.0","40.0","6665","7777","9987"
+"7777","Course1","Enter Course Description","0","0","Enter Lab Info for course","10.0","90.0","6665"
