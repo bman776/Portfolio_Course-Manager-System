@@ -401,6 +401,7 @@ public class ItemEditPage extends JFrame {
                 prereqInput,
                 antireqInput
         );
+        //changeItemIDinSystem MUST come before removeData
         CSVTools.changeItemIDinSystem(oldCourse.getID(), newCourse.getID(), CSVTools.typeC);
         CSVTools.addCourse(newCourse,CSVTools.toCreated);
         CSVTools.removeData(oldCourse);
@@ -440,7 +441,7 @@ public class ItemEditPage extends JFrame {
                 null,
                 oldItem.getParent()
         );
-        //change itemID MUST come before removeData
+        //changeItemIDinSystem MUST come before removeData
         CSVTools.changeItemIDinSystem(oldItem.getID(), newItem.getID(), oldItem.getType());
         CSVTools.removeData(oldItem);
         CSVTools.addItem(newItem, CSVTools.toCreated);
