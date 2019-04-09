@@ -1,5 +1,9 @@
 package GUI;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Item {
 	protected String type; //type can have one of four values: "faculty", "department", "program", and "course"
 	protected String name; //the name can be whatever the user desires
@@ -61,12 +65,29 @@ public class Item {
 
 	public int[] getChildren(){ return children; }
 
-	public void addChildren( int child ) {
-		int[] tempChildren = this.children;
-		this.children = new int [this.children.length+1];
-		for (int i=0; i<this.children.length-1; i++)
-			this.children[i] = tempChildren[i];
-		this.children[this.children.length-1] = child;
+	public void addChild(int childID ) {
+		ArrayList<Integer> tempChildren = new ArrayList<>();
+		for(int i=0; i<this.children.length; i++)
+			tempChildren.add(this.children[i]);
+		tempChildren.add(childID);
+		this.children = new int [tempChildren.size()];
+		for (int i=0; i<this.children.length; i++)
+			this.children[i] = tempChildren.get(i);
+	}
+
+	public void removeChild(int childID){
+		ArrayList<Integer> tempChildren = new ArrayList<>();
+		for(int i=0; i<this.children.length; i++){
+			if (this.children[i] == childID){
+				continue;
+			} else {
+				tempChildren.add(this.children[i]);
+			}
+		}
+		this.children = new int[tempChildren.size()];
+		for (int i=0; i<this.children.length; i++){
+			this.children[i] = tempChildren.get(i);
+		}
 	}
 
 	public int getParent() { return parent; }
