@@ -11,7 +11,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-import Data.BasicLogin;
+import Data.UsersManager;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -25,9 +25,9 @@ import java.awt.event.KeyEvent;
 
 public class CourseManagerGUI {
 
-	
+
 	//Create Instance of Login Class
-	BasicLogin logins = new BasicLogin();
+	UsersManager logins = new UsersManager();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -41,7 +41,7 @@ public class CourseManagerGUI {
 		});
 	}
 
-	
+
 	/**
 	 * Components used in CourseManagerGui
 	 */
@@ -77,7 +77,7 @@ public class CourseManagerGUI {
 	private JButton btnLogout;
 	private JButton btnSettings;
 	private JPanel menuTopRight;
-    private JLabel errorMessage;
+	private JLabel errorMessage;
 
 	//Settings Menu components
 	private JPanel settingsPanel;
@@ -148,20 +148,20 @@ public class CourseManagerGUI {
 		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblUsername.setBounds(375, 61, 169, 31);
 		loginPanel.add(lblUsername);
-		
+
 		// Password Label
 		lblPassword = new JLabel("Password");
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblPassword.setBounds(375, 160, 169, 31);
 		loginPanel.add(lblPassword);
-		
+
 		//Username Text Field
 		usernameField = new JTextField();
 		usernameField.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		usernameField.setBounds(375, 95, 230, 31);
 		loginPanel.add(usernameField);
 		usernameField.setColumns(10);
-		
+
 		// Password Field
 		passwordField = new JPasswordField();
 		passwordField.setBounds(375, 195, 230, 31);
@@ -204,7 +204,7 @@ public class CourseManagerGUI {
 			}
 		});
 		loginPanel.add(passwordField);
-		
+
 		//Log in Button
 		btnLogin = new JButton("Log In");
 		btnLogin.setBackground(new Color(176, 196, 222));
@@ -249,7 +249,7 @@ public class CourseManagerGUI {
 			}
 		});
 		loginPanel.add(btnLogin);
-		
+
 		//Label on the left side of Login Screen
 		lblCourseAndProgram = new JLabel("<html>Course and <br>Program Manager</html>");
 		lblCourseAndProgram.setBackground(new Color(176, 196, 222));
@@ -263,7 +263,7 @@ public class CourseManagerGUI {
 		whiteLoginPanel.setBounds(342, 0, 302, 371);
 		loginPanel.add(whiteLoginPanel);
 		whiteLoginPanel.setLayout(null);
-		
+
 		// Login Message for when user enters incorrect combination
 		loginMessage = new JLabel("<html>Wrong Username and <br>Password Combination</html>");
 		loginMessage.setBounds(37, 293, 210, 48);
@@ -304,7 +304,7 @@ public class CourseManagerGUI {
 			}
 		});
 		menuPanel.add(btnSearchFaculty);
-		
+
 		// Search Department Button
 		btnSearchDepartment = new JButton("Department");
 		btnSearchDepartment.setBackground(new Color(176, 196, 222));
@@ -318,7 +318,7 @@ public class CourseManagerGUI {
 
 		});
 		menuPanel.add(btnSearchDepartment);
-		
+
 		// Search Programs Button
 		btnSearchPrograms = new JButton("Programs");
 		btnSearchPrograms.setBackground(new Color(176, 196, 222));
@@ -371,7 +371,7 @@ public class CourseManagerGUI {
 			}
 		});
 		menuPanel.add(btnLogout);
-		
+
 		// Settings Button
 		btnSettings = new JButton("Settings");
 		btnSettings.setBackground(new Color(176, 196, 222));
@@ -402,10 +402,10 @@ public class CourseManagerGUI {
 		settingsPanel.setBounds(0, 0, 645, 370);
 		frmCourseAndProgram.getContentPane().add(settingsPanel);
 		settingsPanel.setBackground(new Color(176, 196, 222));
-		// Set Visibility so it will not show on start up, only when settings pressed 
+		// Set Visibility so it will not show on start up, only when settings pressed
 		settingsPanel.setVisible(false);
 		settingsPanel.setLayout(null);
-		
+
 		// Back button in settings page to go back to menu
 		btnBack = new JButton("Back");
 		btnBack.setBounds(520, 20, 85, 30);
@@ -443,66 +443,66 @@ public class CourseManagerGUI {
 			}
 		});
 		settingsPanel.add(btnBack);
-		
+
 		// White Panel on Settings Page
 		settingsTopPanel = new JPanel();
 		settingsTopPanel.setBackground(new Color(255, 255, 255));
 		settingsTopPanel.setBounds(25, 11, 610, 47);
 		settingsPanel.add(settingsTopPanel);
 		settingsTopPanel.setLayout(null);
-		
+
 		// Text on top of Settings Page
 		lblUsernameAndPassword = new JLabel("Username and Password Settings");
 		lblUsernameAndPassword.setFont(new Font("Sitka Small", Font.PLAIN, 16));
 		lblUsernameAndPassword.setBounds(20, 9, 450, 30);
 		settingsTopPanel.add(lblUsernameAndPassword);
-		
+
 		// White Panel on Username Side (Left)
 		usernameSettingsPanel = new JPanel();
 		usernameSettingsPanel.setBackground(Color.WHITE);
 		usernameSettingsPanel.setBounds(25, 65, 275, 276);
 		settingsPanel.add(usernameSettingsPanel);
 		usernameSettingsPanel.setLayout(null);
-		
+
 		// Current Username label
 		lblCurrentUsername = new JLabel("Current Username");
 		lblCurrentUsername.setFont(new Font("Sitka Small", Font.PLAIN, 11));
 		lblCurrentUsername.setBounds(10, 10, 125, 20);
 		usernameSettingsPanel.add(lblCurrentUsername);
-		
+
 		// Text field for user to type in current user
 		txtCurrentUsername = new JTextField();
 		txtCurrentUsername.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtCurrentUsername.setBounds(10, 35, 250, 25);
 		usernameSettingsPanel.add(txtCurrentUsername);
 		txtCurrentUsername.setColumns(10);
-		
+
 		// New Username Label
 		lblNewUsername = new JLabel("New Username (5 or more characters)");
 		lblNewUsername.setFont(new Font("Sitka Small", Font.PLAIN, 11));
 		lblNewUsername.setBounds(10, 70, 250, 20);
 		usernameSettingsPanel.add(lblNewUsername);
-		
+
 		// Text field for new Username
 		txtNewUsername = new JTextField();
 		txtNewUsername.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtNewUsername.setColumns(10);
 		txtNewUsername.setBounds(10, 95, 250, 25);
 		usernameSettingsPanel.add(txtNewUsername);
-		
+
 		// Re-enter Username Label
 		lblVerifyNewUsername = new JLabel("Re-Enter New Username");
 		lblVerifyNewUsername.setFont(new Font("Sitka Small", Font.PLAIN, 11));
 		lblVerifyNewUsername.setBounds(10, 130, 140, 20);
 		usernameSettingsPanel.add(lblVerifyNewUsername);
-		
+
 		// Repeat username text box
 		txtRepeatUsername = new JTextField();
 		txtRepeatUsername.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtRepeatUsername.setColumns(10);
 		txtRepeatUsername.setBounds(10, 155, 250, 25);
 		usernameSettingsPanel.add(txtRepeatUsername);
-		
+
 		// Button for change Username
 		btnChangeUsername = new JButton("Change Username");
 		btnChangeUsername.setBackground(new Color(176, 196, 222));
@@ -542,7 +542,7 @@ public class CourseManagerGUI {
 			}
 		});
 		usernameSettingsPanel.add(btnChangeUsername);
-		
+
 		// Message if incorrect current username
 		lblWrongCurrUser = new JLabel("Incorrect Current Username");
 		lblWrongCurrUser.setFont(new Font("Sitka Small", Font.PLAIN, 11));
@@ -550,7 +550,7 @@ public class CourseManagerGUI {
 		lblWrongCurrUser.setBounds(57, 230, 160, 20);
 		lblWrongCurrUser.setVisible(false);
 		usernameSettingsPanel.add(lblWrongCurrUser);
-		
+
 		// Message for if new username is too short
 		lblUserLength = new JLabel("New Username Too Short");
 		lblUserLength.setForeground(Color.RED);
@@ -558,7 +558,7 @@ public class CourseManagerGUI {
 		lblUserLength.setBounds(65, 230, 160, 20);
 		lblUserLength.setVisible(false);
 		usernameSettingsPanel.add(lblUserLength);
-		
+
 		// Message for if new and repeat username does not match
 		lblRepeatUserNoMatch = new JLabel("Repeated Doesn't Match New Username");
 		lblRepeatUserNoMatch.setForeground(Color.RED);
@@ -566,7 +566,7 @@ public class CourseManagerGUI {
 		lblRepeatUserNoMatch.setBounds(30, 230, 240, 20);
 		lblRepeatUserNoMatch.setVisible(false);
 		usernameSettingsPanel.add(lblRepeatUserNoMatch);
-		
+
 		// Message for confirming username change
 		lblUsernameChanged = new JLabel("Username Changed");
 		lblUsernameChanged.setForeground(new Color(34, 139, 34));
@@ -574,32 +574,32 @@ public class CourseManagerGUI {
 		lblUsernameChanged.setBounds(70, 230, 160, 20);
 		lblUsernameChanged.setVisible(false);
 		usernameSettingsPanel.add(lblUsernameChanged);
-		
+
 		// Panel for password side in settings page (
 		passwordPanel = new JPanel();
 		passwordPanel.setLayout(null);
 		passwordPanel.setBackground(Color.WHITE);
 		passwordPanel.setBounds(345, 65, 275, 276);
 		settingsPanel.add(passwordPanel);
-		
+
 		// Current Password label
 		lblCurrentPassword = new JLabel("Current Password");
 		lblCurrentPassword.setFont(new Font("Sitka Small", Font.PLAIN, 11));
 		lblCurrentPassword.setBounds(10, 10, 125, 20);
 		passwordPanel.add(lblCurrentPassword);
-		
+
 		// New Password Label
 		lblNewPassword = new JLabel("New Password (7 or more characters)");
 		lblNewPassword.setFont(new Font("Sitka Small", Font.PLAIN, 11));
 		lblNewPassword.setBounds(10, 70, 250, 20);
 		passwordPanel.add(lblNewPassword);
-		
+
 		// re-Enter new Password label
 		lblReenterNewPassword = new JLabel("Re-Enter New Password");
 		lblReenterNewPassword.setFont(new Font("Sitka Small", Font.PLAIN, 11));
 		lblReenterNewPassword.setBounds(10, 130, 140, 20);
 		passwordPanel.add(lblReenterNewPassword);
-		
+
 		// Change Password Button
 		btnChangePassword = new JButton("Change Password");
 		btnChangePassword.setFont(new Font("Sitka Small", Font.PLAIN, 12));
@@ -672,22 +672,22 @@ public class CourseManagerGUI {
 			}
 		});
 		passwordPanel.add(btnChangePassword);
-		
+
 		// Re-enter Passwordfield
 		reenteredPasswordField = new JPasswordField();
 		reenteredPasswordField.setBounds(10, 155, 250, 25);
 		passwordPanel.add(reenteredPasswordField);
-		
+
 		// New Password Field
 		newPasswordField = new JPasswordField();
 		newPasswordField.setBounds(10, 95, 250, 25);
 		passwordPanel.add(newPasswordField);
-		
+
 		// Current Password Field
 		currentPasswordField = new JPasswordField();
 		currentPasswordField.setBounds(10, 35, 250, 25);
 		passwordPanel.add(currentPasswordField);
-		
+
 		// Message for if wrong current username is entered
 		lblWrongCurrPass = new JLabel("Wrong Current Password");
 		lblWrongCurrPass.setFont(new Font("Sitka Small", Font.PLAIN, 11));
@@ -695,7 +695,7 @@ public class CourseManagerGUI {
 		lblWrongCurrPass.setBounds(62, 230, 160, 20);
 		lblWrongCurrPass.setVisible(false);
 		passwordPanel.add(lblWrongCurrPass);
-		
+
 		// Message for if new Password is too short
 		lblPassLength = new JLabel("New Password Too Short");
 		lblPassLength.setForeground(Color.RED);
@@ -703,7 +703,7 @@ public class CourseManagerGUI {
 		lblPassLength.setBounds(65, 230, 160, 20);
 		lblPassLength.setVisible(false);
 		passwordPanel.add(lblPassLength);
-		
+
 		// Message for if repeated username is different from new username
 		lblRepeatPassNoMatch = new JLabel("Repeated Doesn't Match New Password");
 		lblRepeatPassNoMatch.setForeground(Color.RED);
@@ -711,7 +711,7 @@ public class CourseManagerGUI {
 		lblRepeatPassNoMatch.setBounds(30, 230, 230, 20);
 		lblRepeatPassNoMatch.setVisible(false);
 		passwordPanel.add(lblRepeatPassNoMatch);
-		
+
 		// Confirmation Message for Password Changed
 		lblPWChanged = new JLabel("Password Changed");
 		lblPWChanged.setForeground(new Color(34, 139, 34));
