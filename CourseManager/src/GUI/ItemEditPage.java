@@ -403,8 +403,8 @@ public class ItemEditPage extends JFrame {
         );
         //changeItemIDinSystem MUST come before removeData
         CSVTools.changeItemIDinSystem(oldCourse.getID(), newCourse.getID(), CSVTools.typeC);
-        CSVTools.addCourse(newCourse,CSVTools.toCreated);
         CSVTools.removeData(oldCourse);
+        CSVTools.addCourse(newCourse,CSVTools.toCreated);
         return true;
     }
 
