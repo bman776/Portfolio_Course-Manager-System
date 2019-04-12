@@ -7,6 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
+/**
+ * This class is to read and write CSV files. 
+ * The CSV files can be read and write using text editor directly, but we suggest to use 
+ * this tool. Because editing directly may destroy the form of csv files. 
+ * @author Brett Gattinger, Shiwei Sun
+ * 
+ */
+
 public class CSVTools {
 
     /**
@@ -25,8 +34,8 @@ public class CSVTools {
     public static final String typeC = "course";
 
     // CSVTool constants for file path names
-    public static final String CSV_C = "CourseManager/data/created/";
-    public static final String CSV_D = "CourseManager/data/deleted/";
+    public static final String CSV_C = "./data/created/";
+    public static final String CSV_D = "./data/deleted/";
 
     /* CSVTool constants for specifying whether CSVTool methods are reading from/writing to files in created or deleted
        CSV file folders */
@@ -36,6 +45,13 @@ public class CSVTools {
     public static final boolean fromDeleted = false;
 
 
+    /**
+    * This function is used to find one item by its name. It will read the csv file, and return
+    * the corresponding item instance.
+    * @param type This indicate the type of item you want to find. for example, "department" 
+    * @param name This is the name of the item you want to find.
+    * @return The instance of the item we want to find.
+    */
 
     public static Item findItem(String type, String name, boolean source) {
 
@@ -78,6 +94,13 @@ public class CSVTools {
         }
         return result;
     }
+     /**
+     * This function is used to find one item by its ID. It will read the csv file, and return
+    * the corresponding item instance.
+    * @param type This indicate the type of item you want to find. for example, "department" 
+    * @param ID This is the name of the item you want to find.
+     * @return The instance of the item we want to find.
+    */
 
     public static Item findItem(String type, int ID, boolean source) {
 
@@ -120,6 +143,13 @@ public class CSVTools {
         }
         return result;
     }
+
+    /**
+     * This function is to find the course by its name. It will return the instance of
+     * corresponding course.
+     * @param name The name of the course you want to find.
+     * @return The instance of that course.
+     */
 
     public static Course findCourse(String name, boolean source) {
 
@@ -169,6 +199,13 @@ public class CSVTools {
         return result;
     }
 
+    /**
+     * This function is to find the course by its ID. It will read the csv file first and 
+     * return the instance of corresponding course.
+     * @param ID The name of the course you want to find.
+     * @return The instance of that course.
+     */
+    
     public static Course findCourse(int ID, boolean source) {
 
         String csvFile;
@@ -217,6 +254,13 @@ public class CSVTools {
         return result;
     }
 
+    /**
+     * This item will take an item parameter, and it will write this item to the corresponding 
+     * csv file. For example, if the type of the para is department, this function will write an
+     * department details in department.csv. 
+     * @param newitem The instance of item you want to add to the corresponding csv file.
+     */
+
     public static void addItem(Item newitem, boolean destination) {
 
         String csvFile;
@@ -231,7 +275,7 @@ public class CSVTools {
         FileOutputStream writer = null;
         try {
             scanner = new Scanner(filepast);
-            fileio = new File("CourseManager/data/"+newitem.type+".temp");
+            fileio = new File("./data/"+newitem.type+".temp");
             fileio.createNewFile();
             writer = new FileOutputStream(fileio);
             writer.write((Integer.parseInt(scanner.nextLine())+1+system_ls).getBytes());
@@ -269,6 +313,12 @@ public class CSVTools {
             }
         }
     }
+    
+     /**
+     * This item will take an course parameter, and it will write this item to the corresponding 
+     * csv file. For example, 
+     * @param newcourse The instance of item you want to add to course.
+     */
 
     public static void addCourse(Course newcourse, boolean destination) {
 
@@ -284,7 +334,7 @@ public class CSVTools {
         FileOutputStream writer = null;
         try {
             scanner = new Scanner(filepast);
-            fileio = new File("CourseManager/data/course.temp");
+            fileio = new File("./data/course.temp");
             fileio.createNewFile();
             writer = new FileOutputStream(fileio);
             writer.write((Integer.parseInt(scanner.nextLine())+1+system_ls).getBytes());
